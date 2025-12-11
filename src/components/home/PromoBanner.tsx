@@ -8,15 +8,23 @@ interface PromoBannerProps {
 
 const PromoBanner = ({ variant = "quality" }: PromoBannerProps) => {
     if (variant === "quality") {
-        // Banner between Products and Features - smaller, cleaner
+        // Banner between Products and Features - with background image
         return (
-            <section className="relative overflow-hidden bg-gradient-to-r from-primary via-primary/95 to-primary/90">
+            <section className="relative overflow-hidden">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: "url('/bg-banner-quality.png')" }}
+                />
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-primary/70" />
+
                 {/* Animated background elements */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-2xl animate-pulse" />
-                    <div className="absolute bottom-0 left-1/4 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
-                    <Snowflake className="absolute top-4 left-10 h-6 w-6 text-white/20 animate-spin" style={{ animationDuration: '8s' }} />
-                    <Snowflake className="absolute bottom-4 right-20 h-4 w-4 text-white/15 animate-spin" style={{ animationDuration: '6s' }} />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl animate-pulse" />
+                    <div className="absolute bottom-0 left-1/4 w-24 h-24 bg-white/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
+                    <Snowflake className="absolute top-4 left-10 h-6 w-6 text-white/30 animate-spin" style={{ animationDuration: '8s' }} />
+                    <Snowflake className="absolute bottom-4 right-20 h-4 w-4 text-white/20 animate-spin" style={{ animationDuration: '6s' }} />
                 </div>
 
                 {/* Content */}
@@ -35,7 +43,7 @@ const PromoBanner = ({ variant = "quality" }: PromoBannerProps) => {
                         {/* Text Content */}
                         <div className="text-center flex-1">
                             <h2 className="text-xl md:text-2xl font-bold text-white">
-                                جودة <span className="text-secondary">عالمية</span> • ضمان <span className="text-secondary">5 سنوات</span> • قطع غيار أصلية
+                                جودة <span className="text-secondary">عالمية</span> • ضمان <span className="text-secondary">5 سنوات</span>
                             </h2>
                         </div>
 
@@ -52,14 +60,22 @@ const PromoBanner = ({ variant = "quality" }: PromoBannerProps) => {
         );
     }
 
-    // Contact variant - replaces CTA section
+    // Contact variant - with background image
     return (
-        <section className="relative overflow-hidden bg-gradient-to-l from-primary via-primary/95 to-primary/90">
+        <section className="relative overflow-hidden">
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('/bg-banner-contact.png')" }}
+            />
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-primary/75" />
+
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-0 left-0 w-40 h-40 bg-secondary/10 rounded-full blur-2xl animate-pulse" />
-                <div className="absolute bottom-0 right-1/3 w-28 h-28 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1.5s' }} />
-                <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-green-500/10 rounded-full blur-lg animate-bounce" style={{ animationDuration: '3s' }} />
+                <div className="absolute top-0 left-0 w-40 h-40 bg-secondary/15 rounded-full blur-2xl animate-pulse" />
+                <div className="absolute bottom-0 right-1/3 w-28 h-28 bg-white/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+                <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-green-500/15 rounded-full blur-lg animate-bounce" style={{ animationDuration: '3s' }} />
             </div>
 
             {/* Content */}
@@ -79,7 +95,7 @@ const PromoBanner = ({ variant = "quality" }: PromoBannerProps) => {
                             فريقنا <span className="text-secondary">جاهز</span> لمساعدتك
                         </h2>
                         <p className="text-white/70 text-sm md:text-base max-w-lg mx-auto">
-                            تواصل معنا الآن للحصول على أفضل العروض والاستشارة المجانية
+                            تواصل معنا الآن للحصول على أفضل العروض
                         </p>
                     </div>
 
@@ -108,10 +124,6 @@ const PromoBanner = ({ variant = "quality" }: PromoBannerProps) => {
                         <span className="flex items-center gap-1">
                             <span className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
                             دعم 24/7
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                            استشارة مجانية
                         </span>
                     </div>
                 </div>
