@@ -65,10 +65,10 @@ const Index = () => {
           <HeroBanner />
           <BrandsSection />
           <ProductsSection />
-          <PromoBanner variant="deals" />
+          <PromoBanner variant="quality" />
           <FeaturesSection />
           <TestimonialsSection />
-          <PromoBanner variant="installation" />
+          <PromoBanner variant="support" />
           <CTASection />
         </main>
         <Footer />
