@@ -7,6 +7,7 @@ import ProductsSection from "@/components/home/ProductsSection";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
+import PromoBanner from "@/components/home/PromoBanner";
 
 const Index = () => {
   // Structured Data for SEO
@@ -64,8 +65,10 @@ const Index = () => {
           <HeroBanner />
           <BrandsSection />
           <ProductsSection />
+          <PromoBanner variant="deals" />
           <FeaturesSection />
           <TestimonialsSection />
+          <PromoBanner variant="installation" />
           <CTASection />
         </main>
         <Footer />

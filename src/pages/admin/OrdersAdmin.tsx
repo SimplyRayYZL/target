@@ -63,11 +63,11 @@ interface Order {
 }
 
 const statusOptions = [
-    { value: "pending", label: "قيد الانتظار", color: "bg-yellow-500" },
-    { value: "processing", label: "جاري التجهيز", color: "bg-blue-500" },
-    { value: "shipped", label: "تم الشحن", color: "bg-purple-500" },
-    { value: "delivered", label: "تم التوصيل", color: "bg-green-500" },
-    { value: "cancelled", label: "ملغي", color: "bg-red-500" },
+    { value: "pending", label: "مؤكد", color: "bg-green-500" },
+    { value: "processing", label: "مؤكد", color: "bg-green-500" },
+    { value: "shipped", label: "مؤكد", color: "bg-green-500" },
+    { value: "delivered", label: "مؤكد", color: "bg-green-500" },
+    { value: "cancelled", label: "ملغي/مسترجع", color: "bg-red-500" },
 ];
 
 const OrdersAdmin = () => {
@@ -138,8 +138,8 @@ const OrdersAdmin = () => {
 
             if (error) throw error;
 
-            // If status changed to "delivered", decrease stock for each item
-            if (newStatus === "delivered" && oldStatus !== "delivered" && order?.order_items) {
+            // If status changed to "cancelled", restore stock for each item
+            if (newStatus === "cancelled" && oldStatus !== "cancelled" && order?.order_items) {
                 for (const item of order.order_items) {
                     if (item.product_id) {
                         // Get current stock
@@ -151,7 +151,7 @@ const OrdersAdmin = () => {
 
                         if (product) {
                             const currentStock = (product as any).stock || 0;
-                            const newStock = Math.max(0, currentStock - item.quantity);
+                            const newStock = currentStock + item.quantity;
                             await supabase
                                 .from("products")
                                 .update({ stock: newStock } as any)
@@ -159,9 +159,10 @@ const OrdersAdmin = () => {
                         }
                     }
                 }
+                toast.success("تم إلغاء الطلب وإعادة المخزون");
+            } else {
+                toast.success("تم تحديث حالة الطلب");
             }
-
-            toast.success("تم تحديث حالة الطلب");
             refetch();
         } catch (error) {
             console.error("Error updating order status:", error);
@@ -367,28 +368,24 @@ const OrdersAdmin = () => {
                                                 {order.total_amount.toLocaleString()} ج.م
                                             </TableCell>
                                             <TableCell>
-                                                <Select
-                                                    value={order.status}
-                                                    onValueChange={(value) =>
-                                                        updateOrderStatus(order.id, value)
-                                                    }
-                                                    disabled={updatingStatus === order.id}
-                                                >
-                                                    <SelectTrigger className="w-36">
-                                                        {updatingStatus === order.id ? (
-                                                            <Loader2 className="w-4 h-4 animate-spin" />
-                                                        ) : (
-                                                            getStatusBadge(order.status)
-                                                        )}
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {statusOptions.map((status) => (
-                                                            <SelectItem key={status.value} value={status.value}>
-                                                                {status.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
+                                                <div className="flex items-center gap-2">
+                                                    {getStatusBadge(order.status)}
+                                                    {order.status !== "cancelled" && (
+                                                        <Button
+                                                            variant="destructive"
+                                                            size="sm"
+                                                            onClick={() => updateOrderStatus(order.id, "cancelled")}
+                                                            disabled={updatingStatus === order.id}
+                                                            className="text-xs"
+                                                        >
+                                                            {updatingStatus === order.id ? (
+                                                                <Loader2 className="w-3 h-3 animate-spin" />
+                                                            ) : (
+                                                                "إلغاء"
+                                                            )}
+                                                        </Button>
+                                                    )}
+                                                </div>
                                             </TableCell>
                                             <TableCell className="text-muted-foreground text-sm">
                                                 {new Date(order.created_at).toLocaleDateString("ar-EG")}

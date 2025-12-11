@@ -29,7 +29,6 @@ const Footer = () => {
               {[
                 { name: "الرئيسية", href: "/" },
                 { name: "منتجاتنا", href: "/products" },
-                { name: "الماركات", href: "/brands" },
                 { name: "عن الشركة", href: "/about" },
                 { name: "اتصل بنا", href: "/contact" },
               ].map((link) => (
@@ -50,9 +49,9 @@ const Footer = () => {
             <h3 className="text-lg font-bold">تواصل معنا</h3>
             <ul className="space-y-3">
               <li>
-                <a href="tel:01017174696" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
+                <a href="tel:01289006310" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
                   <Phone className="h-4 w-4 flex-shrink-0" />
-                  <span>01017174696</span>
+                  <span>01289006310</span>
                 </a>
               </li>
               <li>
@@ -73,7 +72,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold">تابعنا</h3>
             <div className="flex items-center gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/DreamCommercialAgencies"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
@@ -81,7 +80,7 @@ const Footer = () => {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/dreamfortradecool?igsh=MTM3aThkemJnd3Qw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
@@ -89,7 +88,7 @@ const Footer = () => {
                 <Instagram className="h-5 w-5" />
               </a>
               <a
-                href="https://wa.me/201017174696"
+                href="https://wa.me/201289006310"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"

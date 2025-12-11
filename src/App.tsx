@@ -1,72 +1,109 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "next-themes";
-import ScrollToTop from "./components/ScrollToTop";
-import FloatingWhatsApp from "./components/FloatingWhatsApp";
-import CompareBar from "./components/compare/CompareBar";
-import { CartProvider } from "./contexts/CartContext";
-import { WishlistProvider } from "./contexts/WishlistContext";
-import { CompareProvider } from "./contexts/CompareContext";
-import Index from "./pages/Index";
-import Products from "./pages/Products";
-import ProductDetails from "./pages/ProductDetails";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import OrderSuccess from "./pages/OrderSuccess";
-import TrackOrder from "./pages/TrackOrder";
-import Wishlist from "./pages/Wishlist";
-import Compare from "./pages/Compare";
-import AdminImageEnhancer from "./pages/AdminImageEnhancer";
-import ProductsAdmin from "./pages/admin/ProductsAdmin";
-import OrdersAdmin from "./pages/admin/OrdersAdmin";
-import NotFound from "./pages/NotFound";
+import { HelmetProvider } from "react-helmet-async";
+import ScrollToTop from "@/components/ScrollToTop";
+import { CartProvider } from "@/contexts/CartContext";
+import { WishlistProvider } from "@/contexts/WishlistContext";
+import { CompareProvider } from "@/contexts/CompareContext";
+import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 
-const queryClient = new QueryClient();
+// Lazy load pages for better performance
+const Index = lazy(() => import("./pages/Index"));
+const Products = lazy(() => import("./pages/Products"));
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
+const Compare = lazy(() => import("./pages/Compare"));
+const AdminImageEnhancer = lazy(() => import("./pages/AdminImageEnhancer"));
+const ProductsAdmin = lazy(() => import("./pages/admin/ProductsAdmin"));
+const OrdersAdmin = lazy(() => import("./pages/admin/OrdersAdmin"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const MyOrders = lazy(() => import("./pages/MyOrders"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+// Loading component for Suspense fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="text-center">
+      <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p className="text-muted-foreground">جاري التحميل...</p>
+    </div>
+  </div>
+);
 
 const App = () => (
   <HelmetProvider>
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       <QueryClientProvider client={queryClient}>
-        <CartProvider>
-          <WishlistProvider>
-            <CompareProvider>
-              <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
-                  <ScrollToTop />
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/product/:id" element={<ProductDetails />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/order-success/:orderId" element={<OrderSuccess />} />
-                    <Route path="/track-order" element={<TrackOrder />} />
-                    <Route path="/track-order/:orderId" element={<TrackOrder />} />
-                    <Route path="/wishlist" element={<Wishlist />} />
-                    <Route path="/compare" element={<Compare />} />
-                    <Route path="/admin/enhance-images" element={<AdminImageEnhancer />} />
-                    <Route path="/admin/products" element={<ProductsAdmin />} />
-                    <Route path="/admin/orders" element={<OrdersAdmin />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                  <FloatingWhatsApp />
-                  <CompareBar />
-                </BrowserRouter>
-              </TooltipProvider>
-            </CompareProvider>
-          </WishlistProvider>
-        </CartProvider>
+        <AuthProvider>
+          <AdminAuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <CompareProvider>
+                  <TooltipProvider>
+                    <Toaster />
+                    <Sonner />
+                    <BrowserRouter>
+                      <ScrollToTop />
+                      <Suspense fallback={<PageLoader />}>
+                        <Routes>
+                          <Route path="/" element={<Index />} />
+                          <Route path="/products" element={<Products />} />
+                          <Route path="/product/:id" element={<ProductDetails />} />
+                          <Route path="/about" element={<About />} />
+                          <Route path="/contact" element={<Contact />} />
+                          <Route path="/cart" element={<Cart />} />
+                          <Route path="/checkout" element={<Checkout />} />
+                          <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+                          <Route path="/wishlist" element={<Wishlist />} />
+                          <Route path="/compare" element={<Compare />} />
+                          {/* Auth Routes */}
+                          <Route path="/login" element={<Login />} />
+                          <Route path="/register" element={<Register />} />
+                          <Route path="/forgot-password" element={<ForgotPassword />} />
+                          <Route path="/reset-password" element={<ResetPassword />} />
+                          <Route path="/my-orders" element={<MyOrders />} />
+                          {/* Admin Routes */}
+                          <Route path="/admin/login" element={<AdminLogin />} />
+                          <Route path="/admin/enhance-images" element={<ProtectedAdminRoute><AdminImageEnhancer /></ProtectedAdminRoute>} />
+                          <Route path="/admin/products" element={<ProtectedAdminRoute><ProductsAdmin /></ProtectedAdminRoute>} />
+                          <Route path="/admin/orders" element={<ProtectedAdminRoute><OrdersAdmin /></ProtectedAdminRoute>} />
+                          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                          <Route path="*" element={<NotFound />} />
+                        </Routes>
+                      </Suspense>
+                    </BrowserRouter>
+                  </TooltipProvider>
+                </CompareProvider>
+              </WishlistProvider>
+            </CartProvider>
+          </AdminAuthProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </HelmetProvider>

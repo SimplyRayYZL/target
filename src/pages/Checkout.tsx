@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag, CreditCard, Truck, MapPin, Phone, User, Mail, CheckCircle } from "lucide-react";
+import { ShoppingBag, CreditCard, Truck, MapPin, Phone, User, Mail, CheckCircle, LogIn } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -27,6 +28,7 @@ interface CheckoutFormData {
 
 const Checkout = () => {
     const { items, totalPrice, clearCart } = useCart();
+    const { user, isLoading: authLoading, profile } = useAuth();
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState<CheckoutFormData>({
@@ -38,6 +40,20 @@ const Checkout = () => {
         notes: "",
         paymentMethod: "cod", // Cash on Delivery
     });
+
+    // Pre-fill form with user data if logged in
+    useEffect(() => {
+        if (user && profile) {
+            setFormData(prev => ({
+                ...prev,
+                customerName: profile.full_name || prev.customerName,
+                phone: profile.phone || prev.phone,
+                email: user.email || prev.email,
+                address: profile.address || prev.address,
+                city: profile.city || prev.city,
+            }));
+        }
+    }, [user, profile]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -60,7 +76,7 @@ const Checkout = () => {
         setIsSubmitting(true);
 
         try {
-            // Create order
+            // Create order with user_id
             const { data: order, error: orderError } = await supabase
                 .from("orders")
                 .insert({
@@ -70,6 +86,7 @@ const Checkout = () => {
                     total_amount: totalPrice,
                     notes: formData.notes || null,
                     status: "pending",
+                    user_id: user?.id || null, // Link order to user
                 })
                 .select()
                 .single();
@@ -91,22 +108,50 @@ const Checkout = () => {
 
             if (itemsError) throw itemsError;
 
-            // Build WhatsApp notification message for admin
-            const adminWhatsAppMessage = encodeURIComponent(
-                `🛒 *طلب جديد!*\n\n` +
-                `📋 رقم الطلب: ${order.id.slice(0, 8).toUpperCase()}\n` +
-                `👤 العميل: ${formData.customerName}\n` +
-                `📞 الهاتف: ${formData.phone}\n` +
-                `📍 العنوان: ${formData.address}, ${formData.city}\n` +
-                `${formData.notes ? `📝 ملاحظات: ${formData.notes}\n` : ''}` +
-                `\n📦 *المنتجات:*\n` +
-                items.map((item) => `  • ${item.product.name} (×${item.quantity}) - ${((item.product.price || 0) * item.quantity).toLocaleString()} ج.م`).join('\n') +
-                `\n\n💰 *الإجمالي: ${totalPrice.toLocaleString()} ج.م*\n` +
-                `\n⏰ ${new Date().toLocaleString('ar-EG')}`
-            );
+            // Decrease stock for each product
+            for (const item of items) {
+                const productId = item.product.id;
+                const quantity = item.quantity;
 
-            // Open WhatsApp to send notification to admin (in new window)
-            window.open(`https://wa.me/201289006310?text=${adminWhatsAppMessage}`, '_blank');
+                // Get current stock
+                const { data: product } = await (supabase
+                    .from("products") as any)
+                    .select("stock")
+                    .eq("id", productId)
+                    .single();
+
+                if (product && product.stock !== undefined) {
+                    const newStock = Math.max(0, (product.stock || 0) - quantity);
+                    await (supabase
+                        .from("products") as any)
+                        .update({ stock: newStock })
+                        .eq("id", productId);
+                }
+            }
+
+            // Send email notification to admin
+            try {
+                await supabase.functions.invoke('send-order-email', {
+                    body: {
+                        orderId: order.id,
+                        customerName: formData.customerName,
+                        customerEmail: formData.email,
+                        phone: formData.phone,
+                        address: formData.address,
+                        city: formData.city,
+                        notes: formData.notes,
+                        items: items.map(item => ({
+                            name: item.product.name,
+                            quantity: item.quantity,
+                            price: (item.product.price || 0) * item.quantity
+                        })),
+                        total: totalPrice
+                    }
+                });
+            } catch (emailError) {
+                console.error("Error sending email notification:", emailError);
+                // Don't block order completion if email fails
+            }
 
             // Clear cart and navigate to success page
             clearCart();
@@ -120,6 +165,49 @@ const Checkout = () => {
         }
     };
 
+    // Show login required screen if not authenticated
+    if (!authLoading && !user) {
+        return (
+            <>
+                <Helmet>
+                    <title>يجب تسجيل الدخول | Dream For Trade</title>
+                </Helmet>
+                <div className="min-h-screen flex flex-col">
+                    <Navbar />
+                    <main className="flex-grow py-8 bg-background">
+                        <div className="container mx-auto px-4">
+                            <div className="text-center py-16 card-dream max-w-md mx-auto">
+                                <div className="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <LogIn className="h-10 w-10 text-secondary" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-foreground mb-4">يجب تسجيل الدخول</h2>
+                                <p className="text-muted-foreground mb-8">
+                                    يرجى تسجيل الدخول أو إنشاء حساب جديد لإتمام عملية الشراء
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <Link to="/login" state={{ from: { pathname: "/checkout" } }}>
+                                        <Button className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 gap-2">
+                                            <LogIn className="h-4 w-4" />
+                                            تسجيل الدخول
+                                        </Button>
+                                    </Link>
+                                    <Link to="/register">
+                                        <Button variant="outline" className="w-full sm:w-auto gap-2">
+                                            <User className="h-4 w-4" />
+                                            إنشاء حساب جديد
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <Footer />
+                </div>
+            </>
+        );
+    }
+
+    // Show empty cart message
     if (items.length === 0) {
         return (
             <>

@@ -131,32 +131,7 @@ const OrderSuccess = () => {
                             </p>
                         </div>
 
-                        {/* Order ID */}
-                        <Card className="mb-6">
-                            <CardContent className="pt-6">
-                                <div className="flex items-center justify-between flex-wrap gap-4">
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">رقم الطلب</p>
-                                        <p className="font-mono text-lg font-bold">{order.id.slice(0, 8).toUpperCase()}</p>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <Button variant="outline" size="sm" onClick={copyOrderId}>
-                                            <Copy className="h-4 w-4 ml-2" />
-                                            نسخ
-                                        </Button>
-                                        <Badge className={`${status.color} text-white`}>
-                                            {status.label}
-                                        </Badge>
-                                    </div>
-                                </div>
-                                {/* Warning to save order ID */}
-                                <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                                    <p className="text-amber-600 dark:text-amber-400 text-sm font-medium flex items-center gap-2">
-                                        ⚠️ <strong>مهم جداً:</strong> يرجى حفظ رقم الطلب لتتمكن من تتبع طلبك لاحقاً!
-                                    </p>
-                                </div>
-                            </CardContent>
-                        </Card>
+
 
                         {/* Order Details */}
                         <div className="grid gap-6 md:grid-cols-2">
@@ -214,22 +189,16 @@ const OrderSuccess = () => {
 
                         {/* Actions */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
-                            <Link to={`/track-order/${order.id}`}>
+                            <Link to="/my-orders">
                                 <Button className="w-full sm:w-auto">
-                                    <Truck className="h-4 w-4 ml-2" />
-                                    تتبع الطلب
+                                    <Package className="h-4 w-4 ml-2" />
+                                    طلباتي
                                 </Button>
                             </Link>
                             <Link to="/products">
                                 <Button variant="outline" className="w-full sm:w-auto">
                                     <ArrowLeft className="h-4 w-4 ml-2" />
                                     متابعة التسوق
-                                </Button>
-                            </Link>
-                            <Link to="/">
-                                <Button variant="ghost" className="w-full sm:w-auto">
-                                    <Home className="h-4 w-4 ml-2" />
-                                    الرئيسية
                                 </Button>
                             </Link>
                         </div>
