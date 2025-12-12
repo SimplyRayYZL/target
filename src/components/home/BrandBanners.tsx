@@ -138,12 +138,14 @@ const BrandBanners = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                                     <div className="text-white text-center md:text-right">
                                         {/* Brand Logo */}
-                                        <div className="flex justify-center md:justify-end mb-4">
-                                            <img
-                                                src={currentBanner.logo}
-                                                alt={currentBanner.brand}
-                                                className="h-12 md:h-16 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.5)]"
-                                            />
+                                        <div className="flex justify-center md:justify-end mb-5">
+                                            <div className="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+                                                <img
+                                                    src={currentBanner.logo}
+                                                    alt={currentBanner.brand}
+                                                    className="h-10 md:h-14 w-auto object-contain brightness-0 invert drop-shadow-lg"
+                                                />
+                                            </div>
                                         </div>
 
                                         {/* Tagline */}
