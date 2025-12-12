@@ -533,6 +533,12 @@ const SettingsAdmin = () => {
                         <TabsContent value="shipping" className="bg-card rounded-xl p-6 space-y-6">
                             <h2 className="text-xl font-bold border-b pb-4">إعدادات الشحن والتوصيل</h2>
 
+                            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-4">
+                                <p className="text-blue-600 dark:text-blue-400 text-sm">
+                                    📍 <strong>نطاق التوصيل:</strong> القاهرة والجيزة فقط
+                                </p>
+                            </div>
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <Label>رسوم التوصيل - القاهرة (ج.م)</Label>
@@ -550,24 +556,6 @@ const SettingsAdmin = () => {
                                         value={formData.delivery_fee_giza}
                                         onChange={(e) => handleChange("delivery_fee_giza", Number(e.target.value))}
                                         placeholder="50"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>رسوم التوصيل - الإسكندرية (ج.م)</Label>
-                                    <Input
-                                        type="number"
-                                        value={formData.delivery_fee_alex}
-                                        onChange={(e) => handleChange("delivery_fee_alex", Number(e.target.value))}
-                                        placeholder="100"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>رسوم التوصيل - باقي المحافظات (ج.م)</Label>
-                                    <Input
-                                        type="number"
-                                        value={formData.delivery_fee_other}
-                                        onChange={(e) => handleChange("delivery_fee_other", Number(e.target.value))}
-                                        placeholder="150"
                                     />
                                 </div>
                                 <div className="space-y-2">
