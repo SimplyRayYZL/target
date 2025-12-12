@@ -15,8 +15,6 @@ import {
     Loader2,
     ArrowRight,
     Phone,
-    Mail,
-    MapPin,
     Clock,
     Globe,
     Facebook,
@@ -24,13 +22,19 @@ import {
     Youtube,
     Twitter,
     MessageCircle,
+    Plus,
+    Trash2,
+    GripVertical,
+    Eye,
+    EyeOff,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSiteSettings, useUpdateSettings, SiteSettings, DEFAULT_SETTINGS } from "@/hooks/useSettings";
+import { useSiteSettings, useUpdateSettings, SiteSettings, DEFAULT_SETTINGS, ShippingArea, Banner } from "@/hooks/useSettings";
 import { toast } from "sonner";
 
 const SettingsAdmin = () => {
@@ -44,7 +48,7 @@ const SettingsAdmin = () => {
         }
     }, [settings]);
 
-    const handleChange = (field: keyof SiteSettings, value: string | number) => {
+    const handleChange = (field: keyof SiteSettings, value: unknown) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
@@ -52,9 +56,64 @@ const SettingsAdmin = () => {
         try {
             await updateSettings.mutateAsync(formData);
             toast.success("تم حفظ الإعدادات بنجاح");
-        } catch (error) {
+        } catch {
             toast.error("حدث خطأ أثناء حفظ الإعدادات");
         }
+    };
+
+    // Shipping Areas handlers
+    const addShippingArea = () => {
+        const newArea: ShippingArea = {
+            id: Date.now().toString(),
+            name: "",
+            fee: 50,
+            isActive: true,
+        };
+        handleChange("shipping_areas", [...formData.shipping_areas, newArea]);
+    };
+
+    const updateShippingArea = (id: string, field: keyof ShippingArea, value: unknown) => {
+        const updated = formData.shipping_areas.map((area) =>
+            area.id === id ? { ...area, [field]: value } : area
+        );
+        handleChange("shipping_areas", updated);
+    };
+
+    const removeShippingArea = (id: string) => {
+        const updated = formData.shipping_areas.filter((area) => area.id !== id);
+        handleChange("shipping_areas", updated);
+    };
+
+    // Banner handlers
+    const addBanner = () => {
+        const newBanner: Banner = {
+            id: Date.now().toString(),
+            image: "",
+            title: "",
+            subtitle: "",
+            buttonText: "تسوق الآن",
+            buttonLink: "/products",
+            isActive: true,
+            order: formData.banners.length + 1,
+        };
+        handleChange("banners", [...formData.banners, newBanner]);
+    };
+
+    const updateBanner = (id: string, field: keyof Banner, value: unknown) => {
+        const updated = formData.banners.map((banner) =>
+            banner.id === id ? { ...banner, [field]: value } : banner
+        );
+        handleChange("banners", updated);
+    };
+
+    const removeBanner = (id: string) => {
+        const updated = formData.banners.filter((banner) => banner.id !== id);
+        handleChange("banners", updated);
+    };
+
+    // Database config handler
+    const handleDatabaseChange = (field: keyof typeof formData.database_config, value: string) => {
+        handleChange("database_config", { ...formData.database_config, [field]: value });
     };
 
     if (isLoading) {
@@ -78,7 +137,7 @@ const SettingsAdmin = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <Link
-                                    to="/admin/products"
+                                    to="/admin"
                                     className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
                                 >
                                     <ArrowRight className="h-5 w-5" />
@@ -476,22 +535,116 @@ const SettingsAdmin = () => {
 
                         {/* Banners Tab */}
                         <TabsContent value="banners" className="bg-card rounded-xl p-6 space-y-6">
-                            <h2 className="text-xl font-bold border-b pb-4">إدارة البانرات</h2>
-
-                            <div className="bg-muted/50 rounded-xl p-6 text-center">
-                                <Image className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                                <h3 className="font-semibold mb-2">قريباً</h3>
-                                <p className="text-muted-foreground text-sm">
-                                    سيتم إضافة إمكانية تعديل البانرات قريباً
-                                </p>
+                            <div className="flex items-center justify-between border-b pb-4">
+                                <h2 className="text-xl font-bold">إدارة البانرات</h2>
+                                <Button onClick={addBanner} className="gap-2">
+                                    <Plus className="h-4 w-4" />
+                                    إضافة بانر
+                                </Button>
                             </div>
+
+                            {formData.banners.length === 0 ? (
+                                <div className="bg-muted/50 rounded-xl p-8 text-center">
+                                    <Image className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                                    <h3 className="font-semibold mb-2">لا توجد بانرات</h3>
+                                    <p className="text-muted-foreground text-sm mb-4">
+                                        أضف بانرات لعرضها في الصفحة الرئيسية
+                                    </p>
+                                    <Button onClick={addBanner} variant="outline" className="gap-2">
+                                        <Plus className="h-4 w-4" />
+                                        إضافة أول بانر
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {formData.banners.map((banner, index) => (
+                                        <div
+                                            key={banner.id}
+                                            className="border rounded-xl p-4 space-y-4 bg-muted/20"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <GripVertical className="h-5 w-5 text-muted-foreground cursor-move" />
+                                                    <span className="font-semibold">بانر {index + 1}</span>
+                                                    {banner.isActive ? (
+                                                        <span className="text-xs bg-green-500/10 text-green-600 px-2 py-1 rounded">مفعل</span>
+                                                    ) : (
+                                                        <span className="text-xs bg-red-500/10 text-red-600 px-2 py-1 rounded">غير مفعل</span>
+                                                    )}
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => updateBanner(banner.id, "isActive", !banner.isActive)}
+                                                    >
+                                                        {banner.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="text-destructive hover:text-destructive"
+                                                        onClick={() => removeBanner(banner.id)}
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <Label>رابط الصورة</Label>
+                                                    <Input
+                                                        value={banner.image}
+                                                        onChange={(e) => updateBanner(banner.id, "image", e.target.value)}
+                                                        placeholder="/banner-1.png"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label>العنوان</Label>
+                                                    <Input
+                                                        value={banner.title}
+                                                        onChange={(e) => updateBanner(banner.id, "title", e.target.value)}
+                                                        placeholder="تكييفات كاريير"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2 md:col-span-2">
+                                                    <Label>النص الفرعي</Label>
+                                                    <Input
+                                                        value={banner.subtitle}
+                                                        onChange={(e) => updateBanner(banner.id, "subtitle", e.target.value)}
+                                                        placeholder="أفضل تكييفات في مصر بأسعار منافسة"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label>نص الزر</Label>
+                                                    <Input
+                                                        value={banner.buttonText}
+                                                        onChange={(e) => updateBanner(banner.id, "buttonText", e.target.value)}
+                                                        placeholder="تسوق الآن"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label>رابط الزر</Label>
+                                                    <Input
+                                                        value={banner.buttonLink}
+                                                        onChange={(e) => updateBanner(banner.id, "buttonLink", e.target.value)}
+                                                        placeholder="/products"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </TabsContent>
 
                         {/* Content Tab */}
                         <TabsContent value="content" className="bg-card rounded-xl p-6 space-y-6">
                             <h2 className="text-xl font-bold border-b pb-4">محتوى الموقع</h2>
 
-                            <div className="space-y-6">
+                            <h3 className="text-lg font-semibold pt-2">الصفحة الرئيسية</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <Label>عنوان الـ Hero الرئيسي</Label>
                                     <Input
@@ -501,6 +654,14 @@ const SettingsAdmin = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <Label>عنوان قسم المميزات</Label>
+                                    <Input
+                                        value={formData.homepage_features_title}
+                                        onChange={(e) => handleChange("homepage_features_title", e.target.value)}
+                                        placeholder="لماذا تختارنا؟"
+                                    />
+                                </div>
+                                <div className="space-y-2 md:col-span-2">
                                     <Label>النص الفرعي للـ Hero</Label>
                                     <Textarea
                                         value={formData.homepage_hero_subtitle}
@@ -510,20 +671,100 @@ const SettingsAdmin = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>نص الـ Footer</Label>
+                                    <Label>عنوان قسم المنتجات</Label>
                                     <Input
-                                        value={formData.footer_text}
-                                        onChange={(e) => handleChange("footer_text", e.target.value)}
-                                        placeholder="جميع الحقوق محفوظة..."
+                                        value={formData.homepage_products_title}
+                                        onChange={(e) => handleChange("homepage_products_title", e.target.value)}
+                                        placeholder="أحدث المنتجات"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>محتوى صفحة "عن الشركة"</Label>
+                                    <Label>عنوان قسم الماركات</Label>
+                                    <Input
+                                        value={formData.homepage_brands_title}
+                                        onChange={(e) => handleChange("homepage_brands_title", e.target.value)}
+                                        placeholder="الماركات المتوفرة"
+                                    />
+                                </div>
+                            </div>
+
+                            <h3 className="text-lg font-semibold border-t pt-6">صفحة عن الشركة</h3>
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label>عنوان الصفحة</Label>
+                                    <Input
+                                        value={formData.about_title}
+                                        onChange={(e) => handleChange("about_title", e.target.value)}
+                                        placeholder="عن دريم للتجارة"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>المحتوى الرئيسي</Label>
                                     <Textarea
                                         value={formData.about_content}
                                         onChange={(e) => handleChange("about_content", e.target.value)}
                                         placeholder="اكتب محتوى صفحة عن الشركة هنا..."
-                                        rows={6}
+                                        rows={4}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>رسالتنا</Label>
+                                        <Textarea
+                                            value={formData.about_mission}
+                                            onChange={(e) => handleChange("about_mission", e.target.value)}
+                                            placeholder="رسالة الشركة..."
+                                            rows={2}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>رؤيتنا</Label>
+                                        <Textarea
+                                            value={formData.about_vision}
+                                            onChange={(e) => handleChange("about_vision", e.target.value)}
+                                            placeholder="رؤية الشركة..."
+                                            rows={2}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 className="text-lg font-semibold border-t pt-6">صفحة اتصل بنا</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label>عنوان الصفحة</Label>
+                                    <Input
+                                        value={formData.contact_title}
+                                        onChange={(e) => handleChange("contact_title", e.target.value)}
+                                        placeholder="تواصل معنا"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>النص الفرعي</Label>
+                                    <Input
+                                        value={formData.contact_subtitle}
+                                        onChange={(e) => handleChange("contact_subtitle", e.target.value)}
+                                        placeholder="نحن هنا لمساعدتك!"
+                                    />
+                                </div>
+                            </div>
+
+                            <h3 className="text-lg font-semibold border-t pt-6">الـ Footer</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label>نص الـ Footer</Label>
+                                    <Input
+                                        value={formData.footer_text}
+                                        onChange={(e) => handleChange("footer_text", e.target.value)}
+                                        placeholder="الوكيل المعتمد..."
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>حقوق النشر</Label>
+                                    <Input
+                                        value={formData.footer_copyright}
+                                        onChange={(e) => handleChange("footer_copyright", e.target.value)}
+                                        placeholder="جميع الحقوق محفوظة..."
                                     />
                                 </div>
                             </div>
@@ -531,33 +772,58 @@ const SettingsAdmin = () => {
 
                         {/* Shipping Tab */}
                         <TabsContent value="shipping" className="bg-card rounded-xl p-6 space-y-6">
-                            <h2 className="text-xl font-bold border-b pb-4">إعدادات الشحن والتوصيل</h2>
+                            <div className="flex items-center justify-between border-b pb-4">
+                                <h2 className="text-xl font-bold">مناطق الشحن والتوصيل</h2>
+                                <Button onClick={addShippingArea} className="gap-2">
+                                    <Plus className="h-4 w-4" />
+                                    إضافة منطقة
+                                </Button>
+                            </div>
 
-                            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-4">
+                            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
                                 <p className="text-blue-600 dark:text-blue-400 text-sm">
-                                    📍 <strong>نطاق التوصيل:</strong> القاهرة والجيزة فقط
+                                    📍 أضف المحافظات التي تقوم بالتوصيل إليها. هذه المحافظات ستظهر للعميل عند الشراء.
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <Label>رسوم التوصيل - القاهرة (ج.م)</Label>
-                                    <Input
-                                        type="number"
-                                        value={formData.delivery_fee_cairo}
-                                        onChange={(e) => handleChange("delivery_fee_cairo", Number(e.target.value))}
-                                        placeholder="50"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>رسوم التوصيل - الجيزة (ج.م)</Label>
-                                    <Input
-                                        type="number"
-                                        value={formData.delivery_fee_giza}
-                                        onChange={(e) => handleChange("delivery_fee_giza", Number(e.target.value))}
-                                        placeholder="50"
-                                    />
-                                </div>
+                            <div className="space-y-3">
+                                {formData.shipping_areas.map((area) => (
+                                    <div
+                                        key={area.id}
+                                        className="flex items-center gap-4 p-4 border rounded-xl bg-muted/20"
+                                    >
+                                        <Switch
+                                            checked={area.isActive}
+                                            onCheckedChange={(checked) => updateShippingArea(area.id, "isActive", checked)}
+                                        />
+                                        <Input
+                                            value={area.name}
+                                            onChange={(e) => updateShippingArea(area.id, "name", e.target.value)}
+                                            placeholder="اسم المحافظة"
+                                            className="flex-1"
+                                        />
+                                        <div className="flex items-center gap-2">
+                                            <Input
+                                                type="number"
+                                                value={area.fee}
+                                                onChange={(e) => updateShippingArea(area.id, "fee", Number(e.target.value))}
+                                                className="w-24"
+                                            />
+                                            <span className="text-muted-foreground">ج.م</span>
+                                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="text-destructive hover:text-destructive"
+                                            onClick={() => removeShippingArea(area.id)}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
                                 <div className="space-y-2">
                                     <Label>حد الشحن المجاني (ج.م)</Label>
                                     <Input
@@ -567,7 +833,7 @@ const SettingsAdmin = () => {
                                         placeholder="10000"
                                     />
                                     <p className="text-xs text-muted-foreground">
-                                        الطلبات فوق هذا المبلغ يكون الشحن مجاني
+                                        الطلبات فوق هذا المبلغ يكون الشحن مجاني (0 = لا يوجد شحن مجاني)
                                     </p>
                                 </div>
                                 <div className="space-y-2">
@@ -617,9 +883,6 @@ const SettingsAdmin = () => {
                                         placeholder="تكييف، تكييفات، كاريير، ميديا، شارب..."
                                         rows={2}
                                     />
-                                    <p className="text-xs text-muted-foreground">
-                                        افصل بين الكلمات بفاصلة
-                                    </p>
                                 </div>
                                 <div className="space-y-2">
                                     <Label>صورة المشاركة (OG Image URL)</Label>
@@ -628,9 +891,6 @@ const SettingsAdmin = () => {
                                         onChange={(e) => handleChange("og_image", e.target.value)}
                                         placeholder="/og-image.jpg"
                                     />
-                                    <p className="text-xs text-muted-foreground">
-                                        الصورة التي تظهر عند مشاركة الموقع
-                                    </p>
                                 </div>
                             </div>
                         </TabsContent>
@@ -642,9 +902,9 @@ const SettingsAdmin = () => {
                                 إعدادات قاعدة البيانات
                             </h2>
 
-                            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mb-6">
+                            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4">
                                 <p className="text-yellow-600 dark:text-yellow-400 text-sm">
-                                    ⚠️ <strong>تحذير:</strong> تغيير هذه الإعدادات قد يؤثر على عمل الموقع. تأكد من صحة البيانات قبل الحفظ.
+                                    ⚠️ <strong>تحذير:</strong> تغيير هذه الإعدادات يتطلب إعادة تحميل الموقع. تأكد من صحة البيانات.
                                 </p>
                             </div>
 
@@ -652,9 +912,9 @@ const SettingsAdmin = () => {
                                 <div className="space-y-2">
                                     <Label>Supabase URL</Label>
                                     <Input
+                                        value={formData.database_config.supabase_url}
+                                        onChange={(e) => handleDatabaseChange("supabase_url", e.target.value)}
                                         placeholder="https://xxxxx.supabase.co"
-                                        disabled
-                                        className="bg-muted"
                                     />
                                     <p className="text-xs text-muted-foreground">
                                         رابط مشروع Supabase الخاص بك
@@ -663,10 +923,9 @@ const SettingsAdmin = () => {
                                 <div className="space-y-2">
                                     <Label>Supabase Anon Key</Label>
                                     <Input
-                                        type="password"
+                                        value={formData.database_config.supabase_anon_key}
+                                        onChange={(e) => handleDatabaseChange("supabase_anon_key", e.target.value)}
                                         placeholder="eyJhbGciOiJIUzI1NiIsInR..."
-                                        disabled
-                                        className="bg-muted"
                                     />
                                     <p className="text-xs text-muted-foreground">
                                         المفتاح العام (Anon Key) للوصول للبيانات
@@ -674,13 +933,10 @@ const SettingsAdmin = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-muted/50 rounded-xl p-6 mt-6">
-                                <h3 className="font-semibold mb-2">لتغيير إعدادات الداتابيز:</h3>
-                                <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
-                                    <li>افتح ملف <code className="bg-muted px-1 rounded">src/integrations/supabase/client.ts</code></li>
-                                    <li>غير قيم SUPABASE_URL و SUPABASE_ANON_KEY</li>
-                                    <li>أعد تشغيل الموقع</li>
-                                </ol>
+                            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mt-6">
+                                <p className="text-green-600 dark:text-green-400 text-sm">
+                                    💡 <strong>ملاحظة:</strong> بعد تغيير إعدادات الداتابيز، اضغط "حفظ التغييرات" ثم أعد تحميل الصفحة.
+                                </p>
                             </div>
                         </TabsContent>
                     </Tabs>

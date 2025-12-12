@@ -1,5 +1,27 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+
+export interface ShippingArea {
+    id: string;
+    name: string;
+    fee: number;
+    isActive: boolean;
+}
+
+export interface Banner {
+    id: string;
+    image: string;
+    title: string;
+    subtitle: string;
+    buttonText: string;
+    buttonLink: string;
+    isActive: boolean;
+    order: number;
+}
+
+export interface DatabaseConfig {
+    supabase_url: string;
+    supabase_anon_key: string;
+}
 
 export interface SiteSettings {
     id?: string;
@@ -39,12 +61,12 @@ export interface SiteSettings {
     snapchat_pixel_id: string;
 
     // Shipping
-    delivery_fee_cairo: number;
-    delivery_fee_giza: number;
-    delivery_fee_alex: number;
-    delivery_fee_other: number;
+    shipping_areas: ShippingArea[];
     free_shipping_threshold: number;
     delivery_message: string;
+
+    // Banners
+    banners: Banner[];
 
     // SEO
     seo_title: string;
@@ -55,8 +77,20 @@ export interface SiteSettings {
     // Content
     homepage_hero_title: string;
     homepage_hero_subtitle: string;
+    homepage_features_title: string;
+    homepage_products_title: string;
+    homepage_brands_title: string;
+    about_title: string;
     about_content: string;
+    about_mission: string;
+    about_vision: string;
+    contact_title: string;
+    contact_subtitle: string;
     footer_text: string;
+    footer_copyright: string;
+
+    // Database
+    database_config: DatabaseConfig;
 }
 
 const DEFAULT_SETTINGS: SiteSettings = {
@@ -92,22 +126,53 @@ const DEFAULT_SETTINGS: SiteSettings = {
     tiktok_pixel_id: "",
     snapchat_pixel_id: "",
 
-    delivery_fee_cairo: 50,
-    delivery_fee_giza: 50,
-    delivery_fee_alex: 100,
-    delivery_fee_other: 150,
+    // Dynamic shipping areas
+    shipping_areas: [
+        { id: "cairo", name: "القاهرة", fee: 50, isActive: true },
+        { id: "giza", name: "الجيزة", fee: 50, isActive: true },
+    ],
     free_shipping_threshold: 10000,
     delivery_message: "التوصيل خلال 2-5 أيام عمل",
+
+    // Default banners
+    banners: [
+        {
+            id: "1",
+            image: "/banner-carrier.png",
+            title: "تكييفات كاريير",
+            subtitle: "أفضل تكييفات في مصر بأسعار منافسة",
+            buttonText: "تسوق الآن",
+            buttonLink: "/products",
+            isActive: true,
+            order: 1,
+        },
+    ],
 
     seo_title: "دريم للتجارة - تكييفات بأفضل الأسعار",
     seo_description: "الوكيل المعتمد لأكبر الماركات العالمية للتكييفات في مصر. كاريير، ميديا، شارب، فريش وأكثر.",
     seo_keywords: "تكييف، تكييفات، كاريير، ميديا، شارب، فريش، مصر",
     og_image: "/og-image.jpg",
 
+    // Enhanced content
     homepage_hero_title: "تكييفات بأفضل الأسعار",
     homepage_hero_subtitle: "اكتشف مجموعتنا الواسعة من التكييفات العالمية",
+    homepage_features_title: "لماذا تختارنا؟",
+    homepage_products_title: "أحدث المنتجات",
+    homepage_brands_title: "الماركات المتوفرة",
+    about_title: "عن دريم للتجارة",
     about_content: "",
-    footer_text: "جميع الحقوق محفوظة © دريم للتجارة",
+    about_mission: "توفير أفضل أنظمة التكييف بأسعار تنافسية مع خدمة عملاء متميزة",
+    about_vision: "أن نكون الخيار الأول للعملاء في مجال التكييفات في مصر",
+    contact_title: "تواصل معنا",
+    contact_subtitle: "نحن هنا لمساعدتك! تواصل معنا في أي وقت",
+    footer_text: "الوكيل المعتمد لأكبر الماركات العالمية للتكييفات",
+    footer_copyright: "جميع الحقوق محفوظة © دريم للتجارة",
+
+    // Database config
+    database_config: {
+        supabase_url: "",
+        supabase_anon_key: "",
+    },
 };
 
 const SETTINGS_KEY = "site_settings";
@@ -135,7 +200,6 @@ export const useSiteSettings = () => {
     return useQuery({
         queryKey: ["site-settings"],
         queryFn: async (): Promise<SiteSettings> => {
-            // Use localStorage for now
             return getStoredSettings();
         },
     });
@@ -154,6 +218,18 @@ export const useUpdateSettings = () => {
             queryClient.invalidateQueries({ queryKey: ["site-settings"] });
         },
     });
+};
+
+// Get only active shipping areas
+export const getActiveShippingAreas = (): ShippingArea[] => {
+    const settings = getStoredSettings();
+    return settings.shipping_areas.filter((area) => area.isActive);
+};
+
+// Get only active banners
+export const getActiveBanners = (): Banner[] => {
+    const settings = getStoredSettings();
+    return settings.banners.filter((banner) => banner.isActive).sort((a, b) => a.order - b.order);
 };
 
 // Export default settings for initial use

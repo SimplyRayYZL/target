@@ -10,11 +10,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { getActiveShippingAreas, useSiteSettings } from "@/hooks/useSettings";
 
 interface CheckoutFormData {
     customerName: string;
@@ -29,8 +31,10 @@ interface CheckoutFormData {
 const Checkout = () => {
     const { items, totalPrice, clearCart } = useCart();
     const { user, isLoading: authLoading, profile } = useAuth();
+    const { data: siteSettings } = useSiteSettings();
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const shippingAreas = getActiveShippingAreas();
     const [formData, setFormData] = useState<CheckoutFormData>({
         customerName: "",
         phone: "",
@@ -40,6 +44,14 @@ const Checkout = () => {
         notes: "",
         paymentMethod: "cod", // Cash on Delivery
     });
+
+    // Calculate shipping fee based on selected city
+    const selectedArea = shippingAreas.find(area => area.name === formData.city);
+    const shippingFee = selectedArea?.fee || 0;
+    const freeShippingThreshold = siteSettings?.free_shipping_threshold || 0;
+    const isFreeShipping = freeShippingThreshold > 0 && totalPrice >= freeShippingThreshold;
+    const finalShippingFee = isFreeShipping ? 0 : shippingFee;
+    const grandTotal = totalPrice + finalShippingFee;
 
     // Pre-fill form with user data if logged in
     useEffect(() => {
@@ -318,15 +330,25 @@ const Checkout = () => {
                                         <CardContent className="space-y-4">
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div className="space-y-2">
-                                                    <Label htmlFor="city">المدينة *</Label>
-                                                    <Input
-                                                        id="city"
-                                                        name="city"
+                                                    <Label htmlFor="city">المحافظة *</Label>
+                                                    <Select
                                                         value={formData.city}
-                                                        onChange={handleInputChange}
-                                                        placeholder="القاهرة"
-                                                        required
-                                                    />
+                                                        onValueChange={(value) => setFormData((prev) => ({ ...prev, city: value }))}
+                                                    >
+                                                        <SelectTrigger id="city">
+                                                            <SelectValue placeholder="اختر المحافظة" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {shippingAreas.map((area) => (
+                                                                <SelectItem key={area.id} value={area.name}>
+                                                                    {area.name} ({area.fee} ج.م)
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    {shippingAreas.length === 0 && (
+                                                        <p className="text-sm text-destructive">لا توجد مناطق توصيل متاحة</p>
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
@@ -418,12 +440,23 @@ const Checkout = () => {
                                                     <span>{totalPrice.toLocaleString()} ج.م</span>
                                                 </div>
                                                 <div className="flex justify-between">
-                                                    <span className="text-muted-foreground">التوصيل:</span>
-                                                    <span className="text-green-600">مجاني</span>
+                                                    <span className="text-muted-foreground">التوصيل ({formData.city || "اختر المحافظة"}):</span>
+                                                    {isFreeShipping ? (
+                                                        <span className="text-green-600">مجاني 🎉</span>
+                                                    ) : formData.city ? (
+                                                        <span>{finalShippingFee.toLocaleString()} ج.م</span>
+                                                    ) : (
+                                                        <span className="text-muted-foreground">--</span>
+                                                    )}
                                                 </div>
+                                                {!isFreeShipping && freeShippingThreshold > 0 && (
+                                                    <p className="text-xs text-muted-foreground">
+                                                        شحن مجاني للطلبات فوق {freeShippingThreshold.toLocaleString()} ج.م
+                                                    </p>
+                                                )}
                                                 <div className="flex justify-between text-lg font-bold border-t pt-2">
                                                     <span>الإجمالي:</span>
-                                                    <span className="text-secondary">{totalPrice.toLocaleString()} ج.م</span>
+                                                    <span className="text-secondary">{grandTotal.toLocaleString()} ج.م</span>
                                                 </div>
                                             </div>
 
