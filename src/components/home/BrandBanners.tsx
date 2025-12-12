@@ -129,15 +129,11 @@ const BrandBanners = () => {
                                     <div className="text-white text-center md:text-right">
                                         {/* Brand Logo */}
                                         <div className="flex justify-center md:justify-end mb-4">
-                                            <div className="bg-white rounded-2xl px-6 py-3 shadow-xl">
+                                            <div className="bg-white rounded-2xl px-5 py-2 shadow-xl inline-flex items-center justify-center min-w-[100px]">
                                                 <img
                                                     src={`/brands/${currentBanner.brand.toLowerCase()}.png`}
                                                     alt={currentBanner.brand}
-                                                    className="h-8 md:h-10 w-auto object-contain"
-                                                    onError={(e) => {
-                                                        e.currentTarget.style.display = 'none';
-                                                        e.currentTarget.parentElement!.innerHTML = `<span class="text-gray-800 font-bold text-xl">${currentBanner.brand}</span>`;
-                                                    }}
+                                                    className="h-10 md:h-12 w-auto object-contain"
                                                 />
                                             </div>
                                         </div>

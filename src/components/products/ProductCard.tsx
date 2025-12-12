@@ -69,7 +69,7 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
       style={{ animationDelay: `${index * 0.05}s` }}
     >
       <Link to={`/product/${product.id}`}>
-        <div className="relative aspect-[4/3] bg-gradient-to-br from-muted to-background rounded-xl mb-4 overflow-hidden">
+        <div className="relative aspect-[1/1] bg-gradient-to-br from-muted to-background rounded-xl mb-3 overflow-hidden">
           {product.oldPrice && (
             <div className="absolute top-2 right-2 bg-destructive text-destructive-foreground px-2.5 py-1 rounded-full text-xs font-bold z-10">
               خصم {Math.round((1 - product.price / product.oldPrice) * 100)}%
@@ -110,20 +110,20 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
           </div>
         </div>
       </Link>
-      <div className="flex flex-col flex-grow space-y-2.5">
+      <div className="flex flex-col flex-grow space-y-1.5">
         {/* Rating */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className={`h-3.5 w-3.5 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
+              <Star key={i} className={`h-3 w-3 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
             ))}
           </div>
-          <span className="text-xs text-muted-foreground">({product.reviews})</span>
+          <span className="text-[10px] text-muted-foreground">({product.reviews})</span>
         </div>
 
         {/* Product Name */}
         <Link to={`/product/${product.id}`}>
-          <h3 className="font-bold text-base text-foreground group-hover:text-secondary transition-colors line-clamp-2 min-h-[2.75rem]">
+          <h3 className="font-semibold text-sm text-foreground group-hover:text-secondary transition-colors line-clamp-2 min-h-[2.25rem]">
             {product.name}
           </h3>
         </Link>
@@ -138,17 +138,17 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
         </div>
 
         {/* Price */}
-        <div className="flex items-center gap-2 pt-1">
+        <div className="flex items-center gap-1.5 pt-1">
           {product.price > 0 ? (
             <>
-              <span className="text-xl font-bold text-secondary">{product.price.toLocaleString()}</span>
-              <span className="text-sm text-muted-foreground">ج.م</span>
+              <span className="text-lg font-bold text-secondary">{product.price.toLocaleString()}</span>
+              <span className="text-xs text-muted-foreground">ج.م</span>
               {product.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through">{product.oldPrice.toLocaleString()}</span>
+                <span className="text-xs text-muted-foreground line-through">{product.oldPrice.toLocaleString()}</span>
               )}
             </>
           ) : (
-            <span className="text-base font-bold text-secondary">اتصل للسعر</span>
+            <span className="text-sm font-bold text-secondary">اتصل للسعر</span>
           )}
         </div>
 
