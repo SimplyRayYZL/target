@@ -55,11 +55,11 @@ const adminPages = [
 ];
 
 const AdminDashboard = () => {
-    const { signOut } = useAdminAuth();
+    const { logout } = useAdminAuth();
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        signOut();
+        logout();
         toast.success("تم تسجيل الخروج");
         navigate("/admin/login");
     };
