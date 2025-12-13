@@ -33,6 +33,7 @@ const brandBanners = [
         id: 2,
         brand: "Midea",
         logo: brandLogos.Midea,
+        logoScale: 1.4,
         image: "/banner-midea.png",
         title: "تكنولوجيا متطورة",
         subtitle: "أفضل أسعار تكييفات ميديا في مصر",
@@ -49,6 +50,7 @@ const brandBanners = [
         id: 3,
         brand: "Fresh",
         logo: brandLogos.Fresh,
+        logoScale: 1.5,
         image: "/banner-fresh.png",
         title: "صنع في مصر",
         subtitle: "تكييفات فريش - جودة عالية بسعر مناسب",
@@ -146,6 +148,7 @@ const BrandBanners = () => {
                                                     src={currentBanner.logo}
                                                     alt={currentBanner.brand}
                                                     className="max-h-[36px] max-w-[120px] w-auto h-auto object-contain"
+                                                    style={{ transform: `scale(${currentBanner.logoScale || 1})` }}
                                                 />
                                             </div>
                                         </div>
