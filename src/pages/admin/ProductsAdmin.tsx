@@ -39,9 +39,14 @@ import {
   Upload,
   Package,
   RefreshCw,
+  CheckSquare,
+  Square,
+  ToggleLeft,
+  ToggleRight,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormData {
   name: string;
@@ -83,6 +88,8 @@ const ProductsAdmin = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const [bulkActionLoading, setBulkActionLoading] = useState(false);
 
   const filteredProducts = products?.filter((product) => {
     const matchesSearch = product.name
@@ -272,6 +279,96 @@ const ProductsAdmin = () => {
     } catch (error) {
       console.error("Error toggling product status:", error);
       toast.error("حدث خطأ");
+    }
+  };
+
+  // Bulk selection functions
+  const toggleSelectProduct = (productId: string) => {
+    setSelectedProducts((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (!filteredProducts) return;
+    if (selectedProducts.length === filteredProducts.length) {
+      setSelectedProducts([]);
+    } else {
+      setSelectedProducts(filteredProducts.map((p) => p.id));
+    }
+  };
+
+  const clearSelection = () => {
+    setSelectedProducts([]);
+  };
+
+  const bulkDelete = async () => {
+    if (selectedProducts.length === 0) return;
+    if (!confirm(`هل أنت متأكد من حذف ${selectedProducts.length} منتج؟`)) return;
+
+    setBulkActionLoading(true);
+    try {
+      const { error } = await supabase
+        .from("products")
+        .delete()
+        .in("id", selectedProducts);
+
+      if (error) throw error;
+
+      toast.success(`تم حذف ${selectedProducts.length} منتج بنجاح`);
+      setSelectedProducts([]);
+      refetch();
+    } catch (error) {
+      console.error("Error bulk deleting:", error);
+      toast.error("حدث خطأ أثناء الحذف");
+    } finally {
+      setBulkActionLoading(false);
+    }
+  };
+
+  const bulkActivate = async () => {
+    if (selectedProducts.length === 0) return;
+    setBulkActionLoading(true);
+    try {
+      const { error } = await supabase
+        .from("products")
+        .update({ is_active: true })
+        .in("id", selectedProducts);
+
+      if (error) throw error;
+
+      toast.success(`تم تفعيل ${selectedProducts.length} منتج`);
+      setSelectedProducts([]);
+      refetch();
+    } catch (error) {
+      console.error("Error bulk activating:", error);
+      toast.error("حدث خطأ");
+    } finally {
+      setBulkActionLoading(false);
+    }
+  };
+
+  const bulkDeactivate = async () => {
+    if (selectedProducts.length === 0) return;
+    setBulkActionLoading(true);
+    try {
+      const { error } = await supabase
+        .from("products")
+        .update({ is_active: false })
+        .in("id", selectedProducts);
+
+      if (error) throw error;
+
+      toast.success(`تم إخفاء ${selectedProducts.length} منتج`);
+      setSelectedProducts([]);
+      refetch();
+    } catch (error) {
+      console.error("Error bulk deactivating:", error);
+      toast.error("حدث خطأ");
+    } finally {
+      setBulkActionLoading(false);
     }
   };
 
@@ -639,14 +736,70 @@ const ProductsAdmin = () => {
 
         {/* Products Table */}
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>قائمة المنتجات</CardTitle>
+            {/* Bulk Action Toolbar */}
+            {selectedProducts.length > 0 && (
+              <div className="flex items-center gap-2 bg-muted p-2 rounded-lg">
+                <span className="text-sm font-medium px-2">
+                  محدد: {selectedProducts.length} منتج
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={bulkActivate}
+                  disabled={bulkActionLoading}
+                  className="gap-1"
+                >
+                  <ToggleRight className="w-4 h-4" />
+                  تفعيل
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={bulkDeactivate}
+                  disabled={bulkActionLoading}
+                  className="gap-1"
+                >
+                  <ToggleLeft className="w-4 h-4" />
+                  إخفاء
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={bulkDelete}
+                  disabled={bulkActionLoading}
+                  className="gap-1"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  حذف
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearSelection}
+                  disabled={bulkActionLoading}
+                >
+                  إلغاء
+                </Button>
+              </div>
+            )}
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-10">
+                      <Checkbox
+                        checked={
+                          filteredProducts &&
+                          filteredProducts.length > 0 &&
+                          selectedProducts.length === filteredProducts.length
+                        }
+                        onCheckedChange={toggleSelectAll}
+                      />
+                    </TableHead>
                     <TableHead className="w-20">الصورة</TableHead>
                     <TableHead>المنتج</TableHead>
                     <TableHead>العلامة</TableHead>
@@ -659,7 +812,13 @@ const ProductsAdmin = () => {
                 </TableHeader>
                 <TableBody>
                   {filteredProducts?.map((product) => (
-                    <TableRow key={product.id}>
+                    <TableRow key={product.id} className={selectedProducts.includes(product.id) ? "bg-muted/50" : ""}>
+                      <TableCell>
+                        <Checkbox
+                          checked={selectedProducts.includes(product.id)}
+                          onCheckedChange={() => toggleSelectProduct(product.id)}
+                        />
+                      </TableCell>
                       <TableCell>
                         <div className="w-16 h-16 bg-muted rounded-lg overflow-hidden">
                           {product.image_url ? (
