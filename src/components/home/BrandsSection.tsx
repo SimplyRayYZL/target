@@ -9,7 +9,7 @@ import freshLogo from "@/assets/brands/fresh.png";
 import mideaLogo from "@/assets/brands/midea.png";
 import haierLogo from "@/assets/brands/haier.png";
 import tornadoLogo from "@/assets/brands/tornado.png";
-import generalLogo from "@/assets/brands/general.png";
+import freeairLogo from "@/assets/brands/freeair.png";
 
 const fallbackLogos: Record<string, string> = {
   "Sharp": sharpLogo,
@@ -18,7 +18,8 @@ const fallbackLogos: Record<string, string> = {
   "Midea": mideaLogo,
   "Haier": haierLogo,
   "Tornado": tornadoLogo,
-  "General": generalLogo,
+  "FreeAir": freeairLogo,
+  "Free Air": freeairLogo,
 };
 
 const BrandsSection = () => {
@@ -28,7 +29,7 @@ const BrandsSection = () => {
     if (brand.logo_url && brand.logo_url.startsWith("http")) {
       return brand.logo_url;
     }
-    return fallbackLogos[brand.name] || generalLogo;
+    return fallbackLogos[brand.name] || freeairLogo;
   };
 
   return (
@@ -62,8 +63,8 @@ const BrandsSection = () => {
                 <div className="aspect-square rounded-2xl bg-background border border-border p-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:shadow-xl group-hover:border-secondary group-hover:bg-secondary/5 group-hover:-translate-y-2">
                   {/* Brand Logo */}
                   <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-3 transition-transform duration-500 group-hover:scale-110">
-                    <img 
-                      src={getBrandLogo(brand)} 
+                    <img
+                      src={getBrandLogo(brand)}
                       alt={`${brand.name_ar} logo`}
                       className="max-w-full max-h-full object-contain filter group-hover:drop-shadow-lg"
                     />
