@@ -2,13 +2,13 @@
 -- Based on 3b-shop.com data with user-provided images
 -- Run this in Supabase SQL Editor
 
--- First, ensure FreeAir brand exists
+-- First, ensure FreeAir brand exists (insert only if not exists)
 INSERT INTO brands (name, name_ar, logo_url)
-VALUES ('FreeAir', 'فري إير', 'https://i.imgur.com/freeair-logo.png')
-ON CONFLICT (name) DO NOTHING;
+SELECT 'FreeAir', 'فري إير', 'https://i.imgur.com/freeair-logo.png'
+WHERE NOT EXISTS (SELECT 1 FROM brands WHERE name = 'FreeAir' OR name = 'Free Air');
 
 -- Delete existing FreeAir products
-DELETE FROM products WHERE brand_id = (SELECT id FROM brands WHERE name = 'FreeAir' OR name = 'Free Air');
+DELETE FROM products WHERE brand_id IN (SELECT id FROM brands WHERE name = 'FreeAir' OR name = 'Free Air');
 
 -- =====================================================
 -- AS Series (Inverter) - بارد/ساخن موفر للطاقة
