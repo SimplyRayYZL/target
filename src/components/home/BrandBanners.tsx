@@ -2,14 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Zap, Thermometer, Wind, Wifi, Leaf, Shield, Snowflake, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import freshLogo from "@/assets/brands/image.png";
-import mideaLogo from "@/assets/brands/c795d2a928508da084ae9d04ba266576.png";
 
 // Brand logo URLs (from database)
 const brandLogos = {
     Carrier: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Logo_of_the_Carrier_Corporation.svg/330px-Logo_of_the_Carrier_Corporation.svg.png",
-    Midea: mideaLogo,
-    Fresh: freshLogo,
+    Midea: "https://images.seeklogo.com/logo-png/9/1/midea-logo-png_seeklogo-92432.png",
+    Fresh: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Fresh_Electric.jpg/960px-Fresh_Electric.jpg",
     Sharp: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_of_the_Sharp_Corporation.svg",
 };
 
@@ -19,7 +17,6 @@ const brandBanners = [
         id: 1,
         brand: "Carrier",
         logo: brandLogos.Carrier,
-        logoScale: 1.1,
         image: "/banner-carrier.png",
         title: "راحة لا مثيل لها",
         subtitle: "تكييفات كاريير الأمريكية - الاختيار الأمثل",
@@ -36,7 +33,7 @@ const brandBanners = [
         id: 2,
         brand: "Midea",
         logo: brandLogos.Midea,
-        logoScale: 1.15,
+        logoScale: 1.4,
         image: "/banner-midea.png",
         title: "تكنولوجيا متطورة",
         subtitle: "أفضل أسعار تكييفات ميديا في مصر",
@@ -53,7 +50,7 @@ const brandBanners = [
         id: 3,
         brand: "Fresh",
         logo: brandLogos.Fresh,
-        logoScale: 1.15,
+        logoScale: 1.5,
         image: "/banner-fresh.png",
         title: "صنع في مصر",
         subtitle: "تكييفات فريش - جودة عالية بسعر مناسب",
@@ -70,7 +67,6 @@ const brandBanners = [
         id: 4,
         brand: "Sharp",
         logo: brandLogos.Sharp,
-        logoScale: 1.15,
         image: "/banner-sharp.png",
         title: "الجودة اليابانية",
         subtitle: "تكييفات شارب - تقنية بلازما كلاستر",
@@ -147,11 +143,11 @@ const BrandBanners = () => {
                                     <div className="text-white text-center md:text-right">
                                         {/* Brand Logo */}
                                         <div className="flex justify-center md:justify-end mb-5">
-                                            <div className="bg-white rounded-2xl px-6 py-3 shadow-xl border border-white/50 flex items-center justify-center backdrop-blur-sm hover:scale-105 transition-transform duration-300" style={{ minWidth: '160px', height: '60px' }}>
+                                            <div className="bg-white rounded-xl px-4 py-2 shadow-lg flex items-center justify-center" style={{ width: '140px', height: '50px' }}>
                                                 <img
                                                     src={currentBanner.logo}
                                                     alt={currentBanner.brand}
-                                                    className="max-h-[42px] max-w-[130px] w-auto h-auto object-contain drop-shadow-sm"
+                                                    className="max-h-[36px] max-w-[120px] w-auto h-auto object-contain"
                                                     style={{ transform: `scale(${currentBanner.logoScale || 1})` }}
                                                 />
                                             </div>
