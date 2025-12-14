@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Zap, Thermometer, Wind, Wifi, Leaf, Shield, Snowflake, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import freshLogo from "@/assets/brands/image.png";
 
 // Brand logo URLs (from database)
 const brandLogos = {
     Carrier: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Logo_of_the_Carrier_Corporation.svg/330px-Logo_of_the_Carrier_Corporation.svg.png",
     Midea: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Midea_logo.svg/512px-Midea_logo.svg.png",
-    Fresh: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Fresh_Electric.jpg/960px-Fresh_Electric.jpg",
+    Fresh: freshLogo,
     Sharp: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_of_the_Sharp_Corporation.svg",
 };
 
@@ -51,7 +52,7 @@ const brandBanners = [
         id: 3,
         brand: "Fresh",
         logo: brandLogos.Fresh,
-        logoScale: 1.3,
+        logoScale: 1.15,
         image: "/banner-fresh.png",
         title: "صنع في مصر",
         subtitle: "تكييفات فريش - جودة عالية بسعر مناسب",
