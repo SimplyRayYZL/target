@@ -34,7 +34,7 @@ const brandBanners = [
         id: 2,
         brand: "Midea",
         logo: brandLogos.Midea,
-        logoScale: 1.2,
+        logoScale: 1.6,
         image: "/banner-midea.png",
         title: "تكنولوجيا متطورة",
         subtitle: "أفضل أسعار تكييفات ميديا في مصر",
