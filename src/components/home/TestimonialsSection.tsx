@@ -71,14 +71,14 @@ const TestimonialsSection = () => {
 
         <Carousel
           opts={{
-            align: "start",
+            align: "center",
             loop: true,
           }}
           className="w-full max-w-5xl mx-auto"
         >
-          <CarouselContent className="-mr-4">
+          <CarouselContent className="-ml-2 md:-ml-4">
             {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="pr-4 md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={testimonial.id} className="pl-2 md:pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3">
                 <div className="card-dream h-full flex flex-col">
                   <Quote className="h-8 w-8 text-secondary/30 mb-4" />
 

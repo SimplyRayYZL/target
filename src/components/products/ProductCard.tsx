@@ -69,61 +69,61 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
       style={{ animationDelay: `${index * 0.05}s` }}
     >
       <Link to={`/product/${product.id}`}>
-        <div className="relative aspect-[5/4] sm:aspect-[1/1] bg-gradient-to-br from-muted to-background rounded-lg sm:rounded-xl mb-1.5 sm:mb-3 overflow-hidden">
+        <div className="relative aspect-square bg-gradient-to-br from-muted to-background rounded-lg sm:rounded-xl mb-1 sm:mb-3 overflow-hidden">
           {product.oldPrice && (
             <div className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-destructive text-destructive-foreground px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold z-10">
               خصم {Math.round((1 - product.price / product.oldPrice) * 100)}%
             </div>
           )}
-          <div className="absolute top-1 left-1 sm:top-2 sm:left-2 flex flex-col gap-1 sm:gap-1.5 z-10">
+          <div className="absolute top-1 left-1 sm:top-2 sm:left-2 flex flex-col gap-0.5 sm:gap-1.5 z-10">
             <button
               onClick={handleWishlistToggle}
-              className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center transition-all ${isInWishlist(product.id)
+              className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md flex items-center justify-center transition-all ${isInWishlist(product.id)
                 ? "bg-destructive text-white"
                 : "bg-card hover:bg-destructive hover:text-white"
                 }`}
             >
-              <Heart className={`h-3.5 w-3.5 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
+              <Heart className={`h-3 w-3 sm:h-3.5 sm:w-3.5 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
             </button>
             {showCompare && (
               <button
                 onClick={handleCompareToggle}
-                className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center transition-all ${isInCompare(product.id)
+                className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md flex items-center justify-center transition-all ${isInCompare(product.id)
                   ? "bg-secondary text-secondary-foreground"
                   : "bg-card hover:bg-secondary hover:text-secondary-foreground"
                   }`}
               >
-                <Scale className="h-3.5 w-3.5" />
+                <Scale className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               </button>
             )}
           </div>
           <img
             src={getProductImage()}
             alt={product.name}
-            className="absolute inset-0 w-full h-full object-contain p-3 transition-all duration-500 group-hover:scale-110"
+            className="absolute inset-0 w-full h-full object-contain p-2 sm:p-3 transition-all duration-500 group-hover:scale-110"
             onError={(e) => {
               e.currentTarget.src = fallbackImages[index % fallbackImages.length];
             }}
           />
-          <div className="absolute bottom-2 right-2 bg-card/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-medium z-10">
+          <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 bg-card/90 backdrop-blur-sm px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-xs font-medium z-10">
             {product.brand}
           </div>
         </div>
       </Link>
       <div className="flex flex-col flex-grow space-y-0.5 sm:space-y-1.5">
-        {/* Rating */}
-        <div className="flex items-center gap-1.5">
+        {/* Rating - Hidden on mobile */}
+        <div className="hidden sm:flex items-center gap-1.5">
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
+              <Star key={i} className={`h-3 w-3 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
             ))}
           </div>
-          <span className="text-[9px] sm:text-[10px] text-muted-foreground">({product.reviews})</span>
+          <span className="text-[10px] text-muted-foreground">({product.reviews})</span>
         </div>
 
         {/* Product Name */}
         <Link to={`/product/${product.id}`}>
-          <h3 className="font-semibold text-[10px] sm:text-xs md:text-sm text-foreground group-hover:text-secondary transition-colors line-clamp-2 min-h-[1.5rem] sm:min-h-[2rem] md:min-h-[2.25rem]">
+          <h3 className="font-semibold text-[11px] leading-tight sm:text-xs md:text-sm text-foreground group-hover:text-secondary transition-colors line-clamp-2">
             {product.name}
           </h3>
         </Link>
@@ -137,8 +137,8 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
           ))}
         </div>
 
-        {/* Price */}
-        <div className="flex items-center gap-1 md:gap-1.5 pt-1">
+        {/* Price - Compact on mobile */}
+        <div className="hidden sm:flex items-center gap-1 md:gap-1.5 pt-1">
           {product.price > 0 ? (
             <>
               <span className="text-xs sm:text-sm md:text-lg font-bold text-secondary">{product.price.toLocaleString()}</span>
@@ -152,8 +152,8 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
           )}
         </div>
 
-        {/* Buttons - Push to bottom */}
-        <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 mt-auto pt-1 sm:pt-2 md:pt-3">
+        {/* Buttons */}
+        <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 mt-auto pt-0.5 sm:pt-2 md:pt-3">
           <a
             href={`https://wa.me/201208000550?text=${encodeURIComponent(
               `🛒 *استفسار عن منتج*\n\n` +
