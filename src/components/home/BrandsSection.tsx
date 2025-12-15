@@ -54,8 +54,8 @@ const BrandsSection = () => {
             <Loader2 className="h-8 w-8 animate-spin text-secondary" />
           </div>
         ) : (
-          /* Brands Grid with staggered animations */
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6">
+          /* Brands Grid with staggered animations - centered */
+          <div className="flex flex-wrap justify-center gap-6">
             {filteredBrands.map((brand, index) => (
               <Link
                 key={brand.id}
@@ -63,7 +63,7 @@ const BrandsSection = () => {
                 className="group cursor-pointer opacity-0 animate-[slide-up_0.6s_ease-out_forwards]"
                 style={{ animationDelay: `${0.1 + index * 0.1}s` }}
               >
-                <div className="aspect-square rounded-2xl bg-background border border-border p-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:shadow-xl group-hover:border-secondary group-hover:bg-secondary/5 group-hover:-translate-y-2">
+                <div className="w-28 md:w-32 lg:w-36 aspect-square rounded-2xl bg-background border border-border p-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:shadow-xl group-hover:border-secondary group-hover:bg-secondary/5 group-hover:-translate-y-2">
                   {/* Brand Logo */}
                   <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-3 transition-transform duration-500 group-hover:scale-110">
                     <img
