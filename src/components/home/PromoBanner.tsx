@@ -114,7 +114,7 @@ const PromoBanner = ({ variant = "features" }: PromoBannerProps) => {
     ];
 
     return (
-        <section className="py-16 md:py-24 bg-gradient-to-b from-[hsl(210,20%,98%)] via-white to-[hsl(210,20%,98%)] relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-sky-100 via-blue-100 to-cyan-100 relative overflow-hidden">
             {/* Animated background circles */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-20 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />

@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Zap, Thermometer, Wind, Wifi, Leaf, Shield, Snowflake, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Import new logos
+import mideaLogoNew from "@/assets/brands/midea-logo-new.png";
+import freshLogoNew from "@/assets/brands/fresh-logo-new.png";
+
 // Brand logo URLs (from database)
 const brandLogos = {
     Carrier: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Logo_of_the_Carrier_Corporation.svg/330px-Logo_of_the_Carrier_Corporation.svg.png",
-    Midea: "https://images.seeklogo.com/logo-png/9/1/midea-logo-png_seeklogo-92432.png",
-    Fresh: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Fresh_Electric.jpg/960px-Fresh_Electric.jpg",
+    Midea: mideaLogoNew,
+    Fresh: freshLogoNew,
     Sharp: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_of_the_Sharp_Corporation.svg",
 };
 
@@ -138,7 +142,7 @@ const BrandBanners = () => {
 
                         {/* Content */}
                         <div className="relative z-10 h-full min-h-[320px] flex items-center">
-                            <div className="container mx-auto px-6 md:px-12">
+                            <div className="container mx-auto px-12 md:px-20 lg:px-28">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                                     <div className="text-white text-center md:text-right">
                                         {/* Brand Logo */}
