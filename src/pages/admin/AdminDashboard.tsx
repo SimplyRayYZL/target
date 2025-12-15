@@ -72,7 +72,7 @@ const AdminDashboard = () => {
     return (
         <>
             <Helmet>
-                <title>لوحة التحكم | Dream For Trade</title>
+                <title>لوحة التحكم | ????? ?????? ???????</title>
             </Helmet>
 
             <div className="min-h-screen bg-muted/30">
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
                                 </div>
                                 <div>
                                     <h1 className="text-xl font-bold">لوحة التحكم</h1>
-                                    <p className="text-sm text-muted-foreground">Dream For Trade</p>
+                                    <p className="text-sm text-muted-foreground">????? ?????? ???????</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -176,3 +176,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+

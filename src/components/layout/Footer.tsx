@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react";
-import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -11,14 +10,14 @@ const Footer = () => {
           {/* About */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="Dream For Trade" className="h-14 w-auto" />
+              <img src="/logo.png" alt="Target Air Conditioning" className="h-14 w-auto" />
               <div className="flex flex-col">
-                <span className="text-xl font-bold">Dream</span>
-                <span className="text-xs text-primary-foreground/70 -mt-1">For Trade</span>
+                <span className="text-xl font-bold">Target</span>
+                <span className="text-xs text-primary-foreground/70 -mt-1">Air Conditioning</span>
               </div>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              الوكيل المعتمد لأكبر الماركات العالمية للتكييفات في مصر. نوفر لكم أفضل المنتجات بأفضل الأسعار مع ضمان الجودة وخدمة ما بعد البيع.
+              شركة تارجت لأعمال التكييف وفلاتر المياه. نوفر لكم أفضل المنتجات بأفضل الأسعار مع ضمان الجودة وخدمة ما بعد البيع.
             </p>
           </div>
 
@@ -49,15 +48,15 @@ const Footer = () => {
             <h3 className="text-lg font-bold">تواصل معنا</h3>
             <ul className="space-y-3">
               <li>
-                <a href="tel:01289006310" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
+                <a href="tel:01208000550" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
                   <Phone className="h-4 w-4 flex-shrink-0" />
-                  <span>01289006310</span>
+                  <span>01208000550</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@dreamfortrade.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
+                <a href="mailto:info@target-ac.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors text-sm">
                   <Mail className="h-4 w-4 flex-shrink-0" />
-                  <span>info@dreamfortrade.com</span>
+                  <span>info@target-ac.com</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-primary-foreground/80 text-sm">
@@ -72,7 +71,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold">تابعنا</h3>
             <div className="flex items-center gap-4">
               <a
-                href="https://www.facebook.com/DreamCommercialAgencies"
+                href="https://www.facebook.com/Target.shiraton"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
@@ -80,15 +79,7 @@ const Footer = () => {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="https://www.instagram.com/dreamfortradecool?igsh=MTM3aThkemJnd3Qw"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://wa.me/201289006310"
+                href="https://wa.me/201208000550"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
@@ -104,7 +95,7 @@ const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="container mx-auto px-4 py-4">
           <p className="text-center text-sm text-primary-foreground/60">
-            © {new Date().getFullYear()} Dream For Trade. جميع الحقوق محفوظة.
+            © {new Date().getFullYear()} Target Air Conditioning. جميع الحقوق محفوظة.
           </p>
         </div>
       </div>
@@ -113,3 +104,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

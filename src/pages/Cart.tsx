@@ -17,8 +17,8 @@ const Cart = () => {
   return (
     <>
       <Helmet>
-        <title>سلة التسوق | Dream For Trade</title>
-        <meta name="description" content="سلة التسوق الخاصة بك - Dream For Trade" />
+        <title>سلة التسوق | ????? ?????? ???????</title>
+        <meta name="description" content="سلة التسوق الخاصة بك - ????? ?????? ???????" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
@@ -175,3 +175,4 @@ const Cart = () => {
 };
 
 export default Cart;
+

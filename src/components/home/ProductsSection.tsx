@@ -168,7 +168,7 @@ const ProductsSection = () => {
                   {/* Add to Cart with WhatsApp */}
                   <div className="flex flex-col gap-2">
                     <a
-                      href={`https://wa.me/201289006310?text=${encodeURIComponent(
+                      href={`https://wa.me/201208000550?text=${encodeURIComponent(
                         `🛒 *استفسار عن منتج*\n\n` +
                         `📦 *المنتج:* ${product.name}\n` +
                         `🏷️ *الماركة:* ${product.brand}\n` +

@@ -155,7 +155,7 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
         {/* Buttons - Push to bottom */}
         <div className="flex flex-col gap-1.5 md:gap-2 mt-auto pt-2 md:pt-3">
           <a
-            href={`https://wa.me/201289006310?text=${encodeURIComponent(
+            href={`https://wa.me/201208000550?text=${encodeURIComponent(
               `🛒 *استفسار عن منتج*\n\n` +
               `📦 *المنتج:* ${product.name}\n` +
               `🏷️ *الماركة:* ${product.brand}\n` +

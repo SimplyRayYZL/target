@@ -78,7 +78,7 @@ const ResetPassword = () => {
         return (
             <>
                 <Helmet>
-                    <title>رابط غير صالح | Dream For Trade</title>
+                    <title>رابط غير صالح | ????? ?????? ???????</title>
                 </Helmet>
 
                 <Navbar />
@@ -120,7 +120,7 @@ const ResetPassword = () => {
         return (
             <>
                 <Helmet>
-                    <title>تم تغيير كلمة المرور | Dream For Trade</title>
+                    <title>تم تغيير كلمة المرور | ????? ?????? ???????</title>
                 </Helmet>
 
                 <Navbar />
@@ -162,7 +162,7 @@ const ResetPassword = () => {
     return (
         <>
             <Helmet>
-                <title>إعادة تعيين كلمة المرور | Dream For Trade</title>
+                <title>إعادة تعيين كلمة المرور | ????? ?????? ???????</title>
             </Helmet>
 
             <Navbar />
@@ -238,3 +238,4 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+

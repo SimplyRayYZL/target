@@ -63,7 +63,7 @@ const PromoBanner = ({ variant = "features" }: PromoBannerProps) => {
                     {/* Title */}
                     <div className="text-center mb-12 md:mb-16">
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
-                            ليه تختار <span className="text-secondary">دريم</span>؟
+                            ليه تختار <span className="text-secondary">تارجت</span>؟
                         </h2>
                         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                             نقدم لك تجربة شراء مميزة مع أفضل الخدمات والضمانات
@@ -189,13 +189,13 @@ const PromoBanner = ({ variant = "features" }: PromoBannerProps) => {
 
                             {/* Buttons */}
                             <div className="flex flex-col gap-3">
-                                <a href="tel:+201289006310" className="block">
+                                <a href="tel:+201208000550" className="block">
                                     <Button className="w-full bg-white hover:bg-white/90 text-primary font-bold gap-2 h-12 rounded-xl shadow-lg transition-all duration-300 hover:scale-105">
                                         <Phone className="h-5 w-5" />
                                         اتصل الآن
                                     </Button>
                                 </a>
-                                <a href="https://wa.me/201289006310" target="_blank" rel="noopener noreferrer" className="block">
+                                <a href="https://wa.me/201208000550" target="_blank" rel="noopener noreferrer" className="block">
                                     <Button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold gap-2 h-12 rounded-xl shadow-lg transition-all duration-300 hover:scale-105">
                                         <MessageCircle className="h-5 w-5" />
                                         واتساب

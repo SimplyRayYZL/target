@@ -76,7 +76,7 @@ const Register = () => {
         return (
             <>
                 <Helmet>
-                    <title>تأكيد البريد الإلكتروني | Dream For Trade</title>
+                    <title>تأكيد البريد الإلكتروني | ????? ?????? ???????</title>
                 </Helmet>
 
                 <Navbar />
@@ -118,8 +118,8 @@ const Register = () => {
     return (
         <>
             <Helmet>
-                <title>إنشاء حساب | Dream For Trade</title>
-                <meta name="description" content="أنشئ حسابك في Dream For Trade للاستمتاع بتجربة تسوق مميزة" />
+                <title>إنشاء حساب | ????? ?????? ???????</title>
+                <meta name="description" content="أنشئ حسابك في ????? ?????? ??????? للاستمتاع بتجربة تسوق مميزة" />
             </Helmet>
 
             <Navbar />
@@ -289,3 +289,4 @@ const Register = () => {
 };
 
 export default Register;
+

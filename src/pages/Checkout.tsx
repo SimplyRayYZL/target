@@ -182,7 +182,7 @@ const Checkout = () => {
         return (
             <>
                 <Helmet>
-                    <title>يجب تسجيل الدخول | Dream For Trade</title>
+                    <title>يجب تسجيل الدخول | ????? ?????? ???????</title>
                 </Helmet>
                 <div className="min-h-screen flex flex-col">
                     <Navbar />
@@ -224,7 +224,7 @@ const Checkout = () => {
         return (
             <>
                 <Helmet>
-                    <title>إتمام الشراء | Dream For Trade</title>
+                    <title>إتمام الشراء | ????? ?????? ???????</title>
                 </Helmet>
                 <div className="min-h-screen flex flex-col">
                     <Navbar />
@@ -254,8 +254,8 @@ const Checkout = () => {
     return (
         <>
             <Helmet>
-                <title>إتمام الشراء | Dream For Trade</title>
-                <meta name="description" content="إتمام عملية الشراء - Dream For Trade" />
+                <title>إتمام الشراء | ????? ?????? ???????</title>
+                <meta name="description" content="إتمام عملية الشراء - ????? ?????? ???????" />
             </Helmet>
 
             <div className="min-h-screen flex flex-col">
@@ -495,3 +495,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+

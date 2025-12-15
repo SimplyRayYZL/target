@@ -1,7 +1,7 @@
 -- =====================================================
--- Dream Elevate Shop - Complete Database Setup
+-- Target Air Conditioning - Complete Database Setup
 -- Run this in Supabase SQL Editor
--- Contains: Tables + 7 Brands + 77 Products
+-- Contains: Tables + 5 Brands (Without Fresh & General)
 -- =====================================================
 
 -- 1. Create ENUM types
@@ -169,10 +169,9 @@ DELETE FROM brands;
 -- INSERT BRANDS (7 brands)
 -- =====================================================
 INSERT INTO brands (id, name, name_ar, logo_url, product_count, is_active, created_at) VALUES
-('4392a0ce-34ce-49f9-bab9-98108a05ad5b', 'Fresh', 'فريش', '/brands/fresh.png', 0, true, '2025-12-08T12:46:30.219192+00:00'),
 ('6a344c80-b585-4323-95ab-d27cd71ad186', 'Haier', 'هاير', '/brands/haier.png', 0, true, '2025-12-08T12:46:30.219192+00:00'),
 ('b989dd83-f397-405f-a318-5b324de35c8e', 'Tornado', 'تورنيدو', '/brands/tornado.png', 6, true, '2025-12-08T12:46:30.219192+00:00'),
-('41dee976-a68a-499f-9eef-58da51cbbee5', 'General', 'جنرال', '/brands/general.png', 20, true, '2025-12-08T12:46:30.219192+00:00'),
+('41dee976-a68a-499f-9eef-58da51cbbee5', 'General', 'جنرال', '/brands/general.png', 0, false, '2025-12-08T12:46:30.219192+00:00'),
 ('be7211c3-cdb9-4cdb-822a-63bbf3d81a0f', 'Sharp', 'شارب', '/brands/sharp.png', 32, true, '2025-12-08T12:46:30.219192+00:00'),
 ('463790c2-3977-4210-8263-cba0e5a8478b', 'Carrier', 'كاريير', '/brands/carrier.png', 13, true, '2025-12-08T12:46:30.219192+00:00'),
 ('1721a7c8-67b2-48f4-8a8a-f516e376205d', 'Midea', 'ميديا', '/brands/midea.png', 6, true, '2025-12-08T12:46:30.219192+00:00');
@@ -258,6 +257,11 @@ INSERT INTO products (id, name, brand_id, price, old_price, capacity, type, feat
 ('21c9f6ea-18bf-44c0-bece-1c561d0c96f2', 'كاريير تكييف حائطي أوبتيماكس 3 حصان بلازما بارد ساخن 53QHCT24N-708F', '463790c2-3977-4210-8263-cba0e5a8478b', 0, NULL, '3 حصان', 'بارد ساخن', ARRAY['خاصية البلازما','شاشة LED','خاصية التتبع داخل الغرفة','خاصية تربو','توجيه أوتوماتيكي للهواء أعلي وأسفل','آعادة التشغيل التلقائي'], 'https://nnepwvkiwbkutfhyaogr.supabase.co/storage/v1/object/public/product-images/21c9f6ea-18bf-44c0-bece-1c561d0c96f2_enhanced.png', 'QHCT24N', 'خاصية البلازما شاشة LED خاصية التتبع داخل الغرفة خاصية تربو توجيه أوتوماتيكي للهواء أعلي وأسفل آعادة التشغيل التلقائي التشخيص الذاتي للاعطال ضاغط أستوائي ضمان 5 سنوات', 4.5, true, '2025-12-08T12:51:00.814056+00:00', '2025-12-08T13:35:24.250069+00:00'),
 ('758fa5f3-0742-424d-9c6d-98a52a0f03ad', 'كاريير تكييف حائطي أوبتيماكس 3 حصان بارد فقط 53KHCT24N-708', '463790c2-3977-4210-8263-cba0e5a8478b', 0, NULL, '3 حصان', 'بارد فقط', ARRAY['شاشة LED','خاصية التتبع داخل الغرفة','خاصية تربو','توجيه أوتوماتيكي للهواء أعلي وأسفل','توجيه أوتوماتيكي للهواء يمين ويسار','آعادة التشغيل التلقائي'], 'https://nnepwvkiwbkutfhyaogr.supabase.co/storage/v1/object/public/product-images/758fa5f3-0742-424d-9c6d-98a52a0f03ad_enhanced.png', 'KHCT24N', 'شاشة LED خاصية التتبع داخل الغرفة خاصية تربو توجيه أوتوماتيكي للهواء أعلي وأسفل توجيه أوتوماتيكي للهواء يمين ويسار آعادة التشغيل التلقائي التشخيص الذاتي للاعطال ضاغط أستوائي ضمان 5 سنوات', 4.5, true, '2025-12-08T12:51:00.527512+00:00', '2025-12-08T13:35:46.212181+00:00'),
 ('15d1346d-850b-49e9-9bec-4e43bb14fd63', 'كاريير تكييف حائطي أوبتيماكس 2.25 حصان بلازما بارد ساخن 53QHCT18N-708F', '463790c2-3977-4210-8263-cba0e5a8478b', 0, NULL, '2.25 حصان', 'بارد ساخن', ARRAY['خاصية البلازما','شاشة LED','خاصية التتبع داخل الغرفة','خاصية تربو','توجيه أوتوماتيكي للهواء أعلي وأسفل','آعادة التشغيل التلقائي'], 'https://nnepwvkiwbkutfhyaogr.supabase.co/storage/v1/object/public/product-images/15d1346d-850b-49e9-9bec-4e43bb14fd63_enhanced.png', 'QHCT18N', 'خاصية البلازما شاشة LED خاصية التتبع داخل الغرفة خاصية تربو توجيه أوتوماتيكي للهواء أعلي وأسفل آعادة التشغيل التلقائي التشخيص الذاتي للاعطال ضاغط أستوائي ضمان 5 سنوات', 4.5, true, '2025-12-08T12:51:00.415883+00:00', '2025-12-08T13:36:03.525904+00:00');
+-- =====================================================
+-- CLEANUP: Remove General products and brand
+-- =====================================================
+DELETE FROM products WHERE brand_id = '41dee976-a68a-499f-9eef-58da51cbbee5';
+DELETE FROM brands WHERE id = '41dee976-a68a-499f-9eef-58da51cbbee5';
 
 -- =====================================================
 -- VERIFICATION
@@ -268,6 +272,6 @@ SELECT 'Products' as type, COUNT(*) as count FROM products;
 
 -- =====================================================
 -- DONE! You should see:
--- Brands: 7
--- Products: 77
+-- Brands: 5 (Haier, Tornado, Sharp, Carrier, Midea)
+-- Products: ~55 (Without General)
 -- =====================================================

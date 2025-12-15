@@ -89,7 +89,7 @@ const OrderSuccess = () => {
         return (
             <>
                 <Helmet>
-                    <title>الطلب غير موجود | Dream For Trade</title>
+                    <title>الطلب غير موجود | ????? ?????? ???????</title>
                 </Helmet>
                 <div className="min-h-screen flex flex-col">
                     <Navbar />
@@ -113,7 +113,7 @@ const OrderSuccess = () => {
     return (
         <>
             <Helmet>
-                <title>تم تأكيد الطلب | Dream For Trade</title>
+                <title>تم تأكيد الطلب | ????? ?????? ???????</title>
             </Helmet>
 
             <div className="min-h-screen flex flex-col">
@@ -211,3 +211,4 @@ const OrderSuccess = () => {
 };
 
 export default OrderSuccess;
+

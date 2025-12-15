@@ -13,7 +13,7 @@ const testimonials = [
     name: "أحمد محمود",
     location: "القاهرة",
     rating: 5,
-    text: "تعامل ممتاز وأسعار منافسة. اشتريت تكييف جنرال 3 حصان والتركيب كان في نفس اليوم. شكراً لفريق دريم للتجارة.",
+    text: "تعامل ممتاز وأسعار منافسة. اشتريت تكييف جنرال 3 حصان والتركيب كان في نفس اليوم. شكراً لفريق تارجت لأعمال التكييف.",
     date: "منذ أسبوع",
   },
   {
@@ -73,16 +73,15 @@ const TestimonialsSection = () => {
               <CarouselItem key={testimonial.id} className="pr-4 md:basis-1/2 lg:basis-1/3">
                 <div className="card-dream h-full flex flex-col">
                   <Quote className="h-8 w-8 text-secondary/30 mb-4" />
-                  
+
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-4 w-4 ${
-                          i < testimonial.rating
+                        className={`h-4 w-4 ${i < testimonial.rating
                             ? "fill-dream-gold text-dream-gold"
                             : "text-muted"
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>

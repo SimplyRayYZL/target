@@ -104,8 +104,8 @@ const TrackOrder = () => {
     return (
         <>
             <Helmet>
-                <title>تتبع الطلب | Dream For Trade</title>
-                <meta name="description" content="تتبع حالة طلبك - Dream For Trade" />
+                <title>تتبع الطلب | ????? ?????? ???????</title>
+                <meta name="description" content="تتبع حالة طلبك - ????? ?????? ???????" />
             </Helmet>
 
             <div className="min-h-screen flex flex-col">
@@ -296,3 +296,4 @@ const TrackOrder = () => {
 };
 
 export default TrackOrder;
+

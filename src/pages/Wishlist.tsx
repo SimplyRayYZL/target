@@ -31,8 +31,8 @@ const Wishlist = () => {
   return (
     <>
       <Helmet>
-        <title>قائمة الأمنيات | Dream For Trade</title>
-        <meta name="description" content="قائمة الأمنيات الخاصة بك - Dream For Trade" />
+        <title>قائمة الأمنيات | ????? ?????? ???????</title>
+        <meta name="description" content="قائمة الأمنيات الخاصة بك - ????? ?????? ???????" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
@@ -144,3 +144,4 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
+

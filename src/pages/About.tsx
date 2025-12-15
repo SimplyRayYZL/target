@@ -24,8 +24,8 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>عن الشركة | Dream For Trade - الوكيل المعتمد للتكييفات</title>
-        <meta name="description" content="تعرف على شركة Dream For Trade - الوكيل المعتمد لأكبر الماركات العالمية للتكييفات في مصر منذ أكثر من 15 عام" />
+        <title>عن الشركة | تارجت لأعمال التكييف - شركة تكييفات وفلاتر مياه</title>
+        <meta name="description" content="تعرف على شركة تارجت لأعمال التكييف وفلاتر المياه في مصر" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
@@ -45,12 +45,12 @@ const About = () => {
                 {/* Text Content */}
                 <div className="space-y-6 animate-fade-in">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                    <span className="text-secondary">Dream For Trade</span>
+                    <span className="text-secondary">Target Air Conditioning</span>
                     <br />
-                    وكيلك المعتمد للتكييفات
+                    تارجت لأعمال التكييف
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    منذ أكثر من 15 عاماً، نعمل في Dream For Trade على توفير أفضل حلول التكييف والتبريد لعملائنا في جميع أنحاء مصر. نفتخر بكوننا الوكيل المعتمد لأشهر الماركات العالمية.
+                    شركة تارجت لأعمال التكييف وفلاتر المياه - نعمل على توفير أفضل حلول التكييف والتبريد وفلاتر المياه لعملائنا في جميع أنحاء مصر.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
                     نحرص على تقديم منتجات أصلية 100% مع ضمان شامل وخدمة ما بعد البيع المتميزة. فريقنا المتخصص جاهز دائماً لمساعدتك في اختيار التكييف المناسب لاحتياجاتك.
@@ -131,3 +131,4 @@ const About = () => {
 };
 
 export default About;
+

@@ -5,13 +5,11 @@ import { Button } from "@/components/ui/button";
 
 // Import new logos
 import mideaLogoNew from "@/assets/brands/midea-logo-new.png";
-import freshLogoNew from "@/assets/brands/fresh-logo-new.png";
 
 // Brand logo URLs (from database)
 const brandLogos = {
     Carrier: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Logo_of_the_Carrier_Corporation.svg/330px-Logo_of_the_Carrier_Corporation.svg.png",
     Midea: mideaLogoNew,
-    Fresh: freshLogoNew,
     Sharp: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_of_the_Sharp_Corporation.svg",
 };
 
@@ -52,23 +50,6 @@ const brandBanners = [
     },
     {
         id: 3,
-        brand: "Fresh",
-        logo: brandLogos.Fresh,
-        logoScale: 1.5,
-        image: "/banner-fresh.png",
-        title: "صنع في مصر",
-        subtitle: "تكييفات فريش - جودة عالية بسعر مناسب",
-        tagline: "وكيل معتمد",
-        features: [
-            { icon: Thermometer, label: "يتحمل الحرارة" },
-            { icon: Shield, label: "ضمان 5 سنوات" },
-            { icon: Wind, label: "توزيع مثالي" },
-            { icon: Zap, label: "اقتصادي" },
-        ],
-        gradient: "from-red-500 via-red-600 to-red-700",
-    },
-    {
-        id: 4,
         brand: "Sharp",
         logo: brandLogos.Sharp,
         image: "/banner-sharp.png",

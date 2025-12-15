@@ -46,9 +46,9 @@ const Navbar = () => {
                 {/* Top Bar */}
                 <div className="bg-secondary text-secondary-foreground py-1.5 text-sm hidden md:block">
                     <div className="container mx-auto px-4 flex justify-between items-center">
-                        <span>الوكيل المعتمد لأكبر الماركات العالمية للتكييفات</span>
-                        <a href="tel:01289006310" className="hover:underline flex items-center gap-1">
-                            📞 01289006310
+                        <span>شركة تارجت لأعمال التكييف وفلاتر المياه</span>
+                        <a href="tel:01208000550" className="hover:underline flex items-center gap-1">
+                            📞 01208000550
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const Navbar = () => {
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
                         <Link to="/" className="flex items-center">
-                            <img src="/logo.png" alt="Dream For Trade" className="h-10 w-auto" />
+                            <img src="/logo.png" alt="Target Air Conditioning" className="h-10 w-auto" />
                         </Link>
 
                         {/* Desktop Navigation */}

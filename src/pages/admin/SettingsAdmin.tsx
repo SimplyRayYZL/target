@@ -39,7 +39,7 @@ import { toast } from "sonner";
 
 // SQL Script for initializing Supabase database
 const DATABASE_INIT_SQL = `-- =====================================================
--- Dream For Trade - Database Initialization Script
+-- ????? ?????? ??????? - Database Initialization Script
 -- Run this in Supabase SQL Editor
 -- =====================================================
 
@@ -416,7 +416,7 @@ const SettingsAdmin = () => {
                                     <Input
                                         value={formData.store_name_en}
                                         onChange={(e) => handleChange("store_name_en", e.target.value)}
-                                        placeholder="Dream For Trade"
+                                        placeholder="????? ?????? ???????"
                                     />
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
@@ -1125,7 +1125,7 @@ const SettingsAdmin = () => {
                                     <Input
                                         value={formData.seo_author}
                                         onChange={(e) => handleChange("seo_author", e.target.value)}
-                                        placeholder="Dream For Trade"
+                                        placeholder="????? ?????? ???????"
                                     />
                                 </div>
                             </div>
@@ -1283,3 +1283,4 @@ const SettingsAdmin = () => {
 };
 
 export default SettingsAdmin;
+

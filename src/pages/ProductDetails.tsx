@@ -120,7 +120,7 @@ const ProductDetails = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} | Dream For Trade</title>
+        <title>{product.name} | ????? ?????? ???????</title>
         <meta name="description" content={`${product.name} - ${product.brand} - ${product.capacity} - السعر ${product.price} جنيه`} />
       </Helmet>
 
@@ -363,7 +363,7 @@ const ProductDetails = () => {
                     </div>
                     {/* WhatsApp Order Button */}
                     <a
-                      href={`https://wa.me/201289006310?text=${encodeURIComponent(
+                      href={`https://wa.me/201208000550?text=${encodeURIComponent(
                         `مرحباً، أود طلب المنتج التالي:\n\n` +
                         `📦 المنتج: ${product.name}\n` +
                         `💰 السعر: ${product.price > 0 ? product.price.toLocaleString() + ' جنيه' : 'اتصل للسعر'}\n` +
@@ -461,3 +461,4 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+

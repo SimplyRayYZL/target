@@ -5,31 +5,34 @@ import { useBrands } from "@/hooks/useProducts";
 // Fallback logos
 import sharpLogo from "@/assets/brands/sharp.png";
 import carrierLogo from "@/assets/brands/carrier.png";
-import freshLogo from "@/assets/brands/fresh.png";
 import mideaLogo from "@/assets/brands/midea.png";
 import haierLogo from "@/assets/brands/haier.png";
 import tornadoLogo from "@/assets/brands/tornado.png";
-import freeairLogo from "@/assets/brands/freeair.png";
 
 const fallbackLogos: Record<string, string> = {
   "Sharp": sharpLogo,
   "Carrier": carrierLogo,
-  "Fresh": freshLogo,
   "Midea": mideaLogo,
   "Haier": haierLogo,
   "Tornado": tornadoLogo,
-  "FreeAir": freeairLogo,
-  "Free Air": freeairLogo,
 };
 
 const BrandsSection = () => {
   const { data: brands = [], isLoading } = useBrands();
 
+  // Filter out Fresh, FreeAir, and General brands
+  const filteredBrands = brands.filter(brand =>
+    !brand.name.toLowerCase().includes('fresh') &&
+    !brand.name.toLowerCase().includes('freeair') &&
+    !brand.name.toLowerCase().includes('free air') &&
+    !brand.name.toLowerCase().includes('general')
+  );
+
   const getBrandLogo = (brand: typeof brands[0]) => {
     if (brand.logo_url && brand.logo_url.startsWith("http")) {
       return brand.logo_url;
     }
-    return fallbackLogos[brand.name] || freeairLogo;
+    return fallbackLogos[brand.name] || sharpLogo;
   };
 
   return (
@@ -53,7 +56,7 @@ const BrandsSection = () => {
         ) : (
           /* Brands Grid with staggered animations */
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6">
-            {brands.map((brand, index) => (
+            {filteredBrands.map((brand, index) => (
               <Link
                 key={brand.id}
                 to={`/products?brand=${brand.name}`}

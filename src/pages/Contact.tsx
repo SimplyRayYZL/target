@@ -11,9 +11,9 @@ import { toast } from "sonner";
 import contactBanner from "@/assets/banners/contact-banner.jpg";
 
 const contactInfo = [
-  { icon: Phone, title: "اتصل بنا", value: "01289006310", href: "tel:01289006310", description: "متاحين من 9 صباحاً حتى 10 مساءً" },
-  { icon: MessageCircle, title: "واتساب", value: "01289006310", href: "https://wa.me/201289006310", description: "رد سريع على استفساراتك" },
-  { icon: Mail, title: "البريد الإلكتروني", value: "info@dreamfortrade.com", href: "mailto:info@dreamfortrade.com", description: "نرد خلال 24 ساعة" },
+  { icon: Phone, title: "اتصل بنا", value: "01208000550", href: "tel:01208000550", description: "متاحين من 9 صباحاً حتى 10 مساءً" },
+  { icon: MessageCircle, title: "واتساب", value: "01208000550", href: "https://wa.me/201208000550", description: "رد سريع على استفساراتك" },
+  { icon: Mail, title: "البريد الإلكتروني", value: "info@target-ac.com", href: "mailto:info@target-ac.com", description: "نرد خلال 24 ساعة" },
   { icon: MapPin, title: "العنوان", value: "القاهرة - مصر", href: "#map", description: "زيارة المعرض" },
 ];
 
@@ -36,8 +36,8 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>اتصل بنا | Dream For Trade</title>
-        <meta name="description" content="تواصل معنا للاستفسار عن منتجاتنا أو للحصول على عرض سعر - Dream For Trade" />
+        <title>اتصل بنا | تارجت لأعمال التكييف</title>
+        <meta name="description" content="تواصل معنا للاستفسار عن منتجاتنا أو للحصول على عرض سعر - تارجت لأعمال التكييف" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
@@ -182,14 +182,14 @@ const Contact = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="موقع Dream For Trade على الخريطة"
+              title="موقع تارجت لأعمال التكييف على الخريطة"
               className="grayscale hover:grayscale-0 transition-all duration-500"
             />
             <div className="absolute top-4 right-4 bg-card/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
               <div className="flex items-center gap-3">
                 <MapPin className="h-6 w-6 text-secondary" />
                 <div>
-                  <p className="font-bold text-foreground">Dream For Trade</p>
+                  <p className="font-bold text-foreground">Target Air Conditioning</p>
                   <p className="text-sm text-muted-foreground">القاهرة - مصر</p>
                 </div>
               </div>

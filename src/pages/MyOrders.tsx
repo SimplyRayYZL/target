@@ -169,7 +169,7 @@ const MyOrders = () => {
     return (
         <>
             <Helmet>
-                <title>طلباتي | Dream For Trade</title>
+                <title>طلباتي | ????? ?????? ???????</title>
                 <meta name="description" content="عرض وإدارة طلباتك" />
             </Helmet>
 
@@ -308,3 +308,4 @@ const MyOrders = () => {
 };
 
 export default MyOrders;
+

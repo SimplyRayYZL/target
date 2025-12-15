@@ -204,7 +204,7 @@ const BrandsAdmin = () => {
     return (
         <>
             <Helmet>
-                <title>إدارة الماركات | Dream For Trade</title>
+                <title>إدارة الماركات | ????? ?????? ???????</title>
             </Helmet>
 
             <div className="min-h-screen bg-background">
@@ -468,3 +468,4 @@ const BrandsAdmin = () => {
 };
 
 export default BrandsAdmin;
+

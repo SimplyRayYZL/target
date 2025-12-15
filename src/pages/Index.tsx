@@ -14,10 +14,10 @@ const Index = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Store",
-    "name": "Dream For Trade",
-    "description": "الوكيل المعتمد لتكييفات شارب، كاريير، جنرال، ميديا، تورنيدو وفريش في مصر",
-    "url": "https://dreamfortrade.com",
-    "telephone": "+201289006310",
+    "name": "Target Air Conditioning",
+    "description": "شركة تارجت لأعمال التكييف وفلاتر المياه - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر",
+    "url": "https://target-ac.com",
+    "telephone": "+201208000550",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "القاهرة",
@@ -26,32 +26,33 @@ const Index = () => {
     "priceRange": "$$",
     "openingHours": ["Sa-Th 09:00-22:00", "Fr 14:00-22:00"],
     "sameAs": [
-      "https://wa.me/201289006310"
+      "https://www.facebook.com/Target.shiraton",
+      "https://wa.me/201208000550"
     ]
   };
 
   return (
     <>
       <Helmet>
-        <title>Dream For Trade | الوكيل المعتمد لأكبر الماركات العالمية للتكييفات</title>
+        <title>تارجت لأعمال التكييف | تكييفات وفلاتر مياه في مصر</title>
         <meta
           name="description"
-          content="Dream For Trade - الوكيل المعتمد لتكييفات شارب، كاريير، جنرال، ميديا، تورنيدو وفريش في مصر. أفضل الأسعار، ضمان شامل، وتوصيل مجاني."
+          content="شركة تارجت لأعمال التكييف وفلاتر المياه - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر. أفضل الأسعار، ضمان شامل، وتوصيل مجاني."
         />
-        <meta name="keywords" content="تكييفات, شارب, كاريير, جنرال, ميديا, تورنيدو, فريش, مصر, توكيل معتمد" />
-        <link rel="canonical" href="https://dreamfortrade.com" />
+        <meta name="keywords" content="تكييفات, شارب, كاريير, جنرال, ميديا, تورنيدو, مصر, تارجت, فلاتر مياه" />
+        <link rel="canonical" href="https://target-ac.com" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Dream For Trade | الوكيل المعتمد لأكبر الماركات العالمية للتكييفات" />
+        <meta property="og:title" content="تارجت لأعمال التكييف | تكييفات وفلاتر مياه" />
         <meta property="og:description" content="أفضل أسعار التكييفات في مصر مع ضمان شامل وتوصيل مجاني" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://dreamfortrade.com" />
+        <meta property="og:url" content="https://target-ac.com" />
         <meta property="og:locale" content="ar_EG" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Dream For Trade | تكييفات بأفضل الأسعار" />
-        <meta name="twitter:description" content="الوكيل المعتمد لأكبر الماركات العالمية للتكييفات في مصر" />
+        <meta name="twitter:title" content="تارجت لأعمال التكييف | تكييفات بأفضل الأسعار" />
+        <meta name="twitter:description" content="شركة تارجت لأعمال التكييف وفلاتر المياه في مصر" />
 
         {/* Structured Data */}
         <script type="application/ld+json">

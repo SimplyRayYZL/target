@@ -41,8 +41,8 @@ const Login = () => {
     return (
         <>
             <Helmet>
-                <title>تسجيل الدخول | Dream For Trade</title>
-                <meta name="description" content="سجّل دخولك لمتابعة طلباتك وإدارة حسابك في Dream For Trade" />
+                <title>تسجيل الدخول | ????? ?????? ???????</title>
+                <meta name="description" content="سجّل دخولك لمتابعة طلباتك وإدارة حسابك في ????? ?????? ???????" />
             </Helmet>
 
             <Navbar />
@@ -210,3 +210,4 @@ const Login = () => {
 };
 
 export default Login;
+

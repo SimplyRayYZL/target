@@ -70,7 +70,7 @@ const Products = () => {
   return (
     <>
       <Helmet>
-        <title>منتجاتنا | Dream For Trade - أفضل تكييفات في مصر</title>
+        <title>منتجاتنا | تارجت لأعمال التكييف - أفضل تكييفات في مصر</title>
         <meta name="description" content="تصفح مجموعتنا الواسعة من التكييفات من أشهر الماركات العالمية - جنرال، كاريير، شارب، فريش، ميديا والمزيد" />
       </Helmet>
 

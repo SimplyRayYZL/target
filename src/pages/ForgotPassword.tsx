@@ -36,7 +36,7 @@ const ForgotPassword = () => {
         return (
             <>
                 <Helmet>
-                    <title>تم إرسال الرابط | Dream For Trade</title>
+                    <title>تم إرسال الرابط | ????? ?????? ???????</title>
                 </Helmet>
 
                 <Navbar />
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
     return (
         <>
             <Helmet>
-                <title>نسيت كلمة المرور | Dream For Trade</title>
+                <title>نسيت كلمة المرور | ????? ?????? ???????</title>
                 <meta name="description" content="استعد كلمة المرور الخاصة بك" />
             </Helmet>
 
@@ -148,3 +148,4 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+

@@ -39,8 +39,8 @@ const Compare = () => {
   return (
     <>
       <Helmet>
-        <title>مقارنة المنتجات | Dream For Trade</title>
-        <meta name="description" content="قارن بين المنتجات المختلفة - Dream For Trade" />
+        <title>مقارنة المنتجات | ????? ?????? ???????</title>
+        <meta name="description" content="قارن بين المنتجات المختلفة - ????? ?????? ???????" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
@@ -185,3 +185,4 @@ const Compare = () => {
 };
 
 export default Compare;
+
