@@ -110,50 +110,50 @@ const ProductCard = ({ product, index = 0, showCompare = true }: ProductCardProp
           </div>
         </div>
       </Link>
-      <div className="flex flex-col flex-grow space-y-0.5 sm:space-y-1.5">
+      <div className="flex flex-col flex-grow space-y-1.5">
         {/* Rating */}
         <div className="flex items-center gap-1 sm:gap-1.5">
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
+              <Star key={i} className={`h-3 w-3 ${i < Math.floor(product.rating) ? "fill-dream-gold text-dream-gold" : "text-muted"}`} />
             ))}
           </div>
-          <span className="text-[8px] sm:text-[10px] text-muted-foreground">({product.reviews})</span>
+          <span className="text-[10px] text-muted-foreground">({product.reviews})</span>
         </div>
 
         {/* Product Name */}
         <Link to={`/product/${product.id}`}>
-          <h3 className="font-semibold text-[11px] leading-tight sm:text-xs md:text-sm text-foreground group-hover:text-secondary transition-colors line-clamp-2">
+          <h3 className="font-semibold text-xs md:text-sm text-foreground group-hover:text-secondary transition-colors line-clamp-2 min-h-[2rem] md:min-h-[2.25rem]">
             {product.name}
           </h3>
         </Link>
 
         {/* Features */}
-        <div className="flex flex-wrap gap-0.5 sm:gap-1">
+        <div className="flex flex-wrap gap-1">
           {product.features.slice(0, 2).map((feature) => (
-            <span key={feature} className="text-[8px] sm:text-[10px] bg-muted text-muted-foreground px-1 sm:px-1.5 py-0.5 rounded truncate max-w-[80px] sm:max-w-[120px]">
+            <span key={feature} className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded-md truncate max-w-[120px]">
               {feature}
             </span>
           ))}
         </div>
 
         {/* Price */}
-        <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 pt-0.5 sm:pt-1">
+        <div className="flex items-center gap-1 md:gap-1.5 pt-1">
           {product.price > 0 ? (
             <>
-              <span className="text-[10px] sm:text-sm md:text-lg font-bold text-secondary">{product.price.toLocaleString()}</span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-muted-foreground">ج.م</span>
+              <span className="text-sm md:text-lg font-bold text-secondary">{product.price.toLocaleString()}</span>
+              <span className="text-[10px] md:text-xs text-muted-foreground">ج.م</span>
               {product.oldPrice && (
-                <span className="text-[8px] sm:text-[10px] md:text-xs text-muted-foreground line-through">{product.oldPrice.toLocaleString()}</span>
+                <span className="text-[10px] md:text-xs text-muted-foreground line-through">{product.oldPrice.toLocaleString()}</span>
               )}
             </>
           ) : (
-            <span className="text-[9px] sm:text-xs md:text-sm font-bold text-secondary">اتصل للسعر</span>
+            <span className="text-xs md:text-sm font-bold text-secondary">اتصل للسعر</span>
           )}
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 mt-auto pt-0.5 sm:pt-2 md:pt-3">
+        <div className="flex flex-col gap-1.5 md:gap-2 mt-auto pt-2 md:pt-3">
           <a
             href={`https://wa.me/201208000550?text=${encodeURIComponent(
               `🛒 *استفسار عن منتج*\n\n` +
