@@ -262,19 +262,35 @@ export const useUpdateSettings = () => {
             // Save to localStorage as cache
             cacheSettings(settings);
 
-            // Save to Supabase
+            console.log("[Settings] Saving to Supabase (update)...");
+
+            // Save to Supabase using UPDATE (row must exist)
             const { error } = await (supabase
                 .from("site_settings") as any)
-                .upsert({
-                    id: "main",
+                .update({
                     settings: settings,
                     updated_at: new Date().toISOString()
-                });
+                })
+                .eq("id", "main");
 
             if (error) {
-                console.error("Error saving settings:", error);
-                toast.error("فشل حفظ الإعدادات في قاعدة البيانات");
-                throw error;
+                console.error("[Settings] DB Save Error:", error);
+
+                // If update fails, try upsert as fallback
+                console.log("[Settings] Update failed, trying upsert...");
+                const { error: upsertError } = await (supabase
+                    .from("site_settings") as any)
+                    .upsert({
+                        id: "main",
+                        settings: settings,
+                        updated_at: new Date().toISOString()
+                    });
+
+                if (upsertError) {
+                    console.error("[Settings] DB Upsert Error:", upsertError);
+                    toast.error("فشل حفظ الإعدادات في قاعدة البيانات");
+                    throw upsertError;
+                }
             }
 
             toast.success("تم حفظ الإعدادات بنجاح");
