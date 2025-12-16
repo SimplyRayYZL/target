@@ -15,7 +15,7 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "Store",
     "name": "Target Air Conditioning",
-    "description": "شركة تارجت لأعمال التكييف وفلاتر المياه - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر",
+    "description": "شركة تارجت لأعمال التكييف - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر",
     "url": "https://target-ac.com",
     "telephone": "+201208000550",
     "address": {
@@ -34,16 +34,16 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>تارجت لأعمال التكييف | تكييفات وفلاتر مياه في مصر</title>
+        <title>تارجت لأعمال التكييف | تكييفات في مصر</title>
         <meta
           name="description"
-          content="شركة تارجت لأعمال التكييف وفلاتر المياه - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر. أفضل الأسعار، ضمان شامل، وتوصيل مجاني."
+          content="شركة تارجت لأعمال التكييف - تكييفات شارب، كاريير، جنرال، ميديا، تورنيدو في مصر. أفضل الأسعار، ضمان شامل، وتوصيل مجاني."
         />
-        <meta name="keywords" content="تكييفات, شارب, كاريير, جنرال, ميديا, تورنيدو, مصر, تارجت, فلاتر مياه" />
+        <meta name="keywords" content="تكييفات, شارب, كاريير, جنرال, ميديا, تورنيدو, مصر, تارجت" />
         <link rel="canonical" href="https://target-ac.com" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="تارجت لأعمال التكييف | تكييفات وفلاتر مياه" />
+        <meta property="og:title" content="تارجت لأعمال التكييف | تكييفات في مصر" />
         <meta property="og:description" content="أفضل أسعار التكييفات في مصر مع ضمان شامل وتوصيل مجاني" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://target-ac.com" />
@@ -52,7 +52,7 @@ const Index = () => {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="تارجت لأعمال التكييف | تكييفات بأفضل الأسعار" />
-        <meta name="twitter:description" content="شركة تارجت لأعمال التكييف وفلاتر المياه في مصر" />
+        <meta name="twitter:description" content="شركة تارجت لأعمال التكييف في مصر" />
 
         {/* Structured Data */}
         <script type="application/ld+json">

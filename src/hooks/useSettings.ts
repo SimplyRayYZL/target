@@ -107,7 +107,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
     store_name: "تارجت لأعمال التكييف",
     store_name_en: "Target Air Conditioning",
     store_logo: "/logo.png",
-    store_description: "شركة تارجت لأعمال التكييف وفلاتر المياه",
+    store_description: "شركة تارجت لأعمال التكييف",
     store_slogan: "جودة... ثقة... خدمة",
     store_address: "القاهرة، مصر",
     store_phone: "01208000550",
@@ -159,7 +159,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
     ],
 
     seo_title: "تارجت لأعمال التكييف - تكييفات بأفضل الأسعار",
-    seo_description: "شركة تارجت لأعمال التكييف وفلاتر المياه في مصر. كاريير، ميديا، شارب، فريش وأكثر.",
+    seo_description: "شركة تارجت لأعمال التكييف في مصر. كاريير، ميديا، شارب، فريش وأكثر.",
     seo_keywords: "تكييف، تكييفات، كاريير، ميديا، شارب، فريش، مصر، تارجت",
     og_image: "/og-image.jpg",
     seo_robots: "index, follow",
@@ -179,11 +179,11 @@ const DEFAULT_SETTINGS: SiteSettings = {
     homepage_brands_title: "الماركات المتوفرة",
     about_title: "عن تارجت لأعمال التكييف",
     about_content: "",
-    about_mission: "توفير أفضل أنظمة التكييف وفلاتر المياه بأسعار تنافسية مع خدمة عملاء متميزة",
-    about_vision: "أن نكون الخيار الأول للعملاء في مجال التكييفات وفلاتر المياه في مصر",
+    about_mission: "توفير أفضل أنظمة التكييف بأسعار تنافسية مع خدمة عملاء متميزة",
+    about_vision: "أن نكون الخيار الأول للعملاء في مجال التكييفات في مصر",
     contact_title: "تواصل معنا",
     contact_subtitle: "نحن هنا لمساعدتك! تواصل معنا في أي وقت",
-    footer_text: "شركة تارجت لأعمال التكييف وفلاتر المياه",
+    footer_text: "شركة تارجت لأعمال التكييف",
     footer_copyright: "جميع الحقوق محفوظة © تارجت لأعمال التكييف",
 
     // Database config

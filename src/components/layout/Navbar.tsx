@@ -45,7 +45,7 @@ const Navbar = () => {
                 {/* Top Bar */}
                 <div className="bg-secondary text-secondary-foreground py-1.5 text-sm hidden md:block">
                     <div className="container mx-auto px-4 flex justify-between items-center">
-                        <span>شركة تارجت لأعمال التكييف وفلاتر المياه</span>
+                        <span>شركة تارجت لأعمال التكييف</span>
                         <a href="tel:01208000550" className="hover:underline flex items-center gap-1">
                             📞 01208000550
                         </a>
