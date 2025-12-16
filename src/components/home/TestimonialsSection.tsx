@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Star, Quote } from "lucide-react";
 import {
   Carousel,
@@ -5,6 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 const testimonials = [
@@ -59,6 +61,19 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const [api, setApi] = React.useState<CarouselApi>();
+
+  // Auto-play every 10 seconds
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [api]);
+
   return (
     <section className="py-16 bg-muted">
       <div className="container mx-auto px-4">
@@ -70,10 +85,10 @@ const TestimonialsSection = () => {
         </div>
 
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: true,
-            dragFree: true,
           }}
           className="w-full max-w-5xl mx-auto"
         >
@@ -110,8 +125,8 @@ const TestimonialsSection = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
+          <CarouselPrevious className="-left-4 sm:-left-12" />
+          <CarouselNext className="-right-4 sm:-right-12" />
         </Carousel>
       </div>
     </section>
