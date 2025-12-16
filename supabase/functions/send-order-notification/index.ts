@@ -4,15 +4,18 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const ADMIN_EMAIL = "ahmedhossa20008@gmail.com";
 
 interface OrderData {
-    order_id: string;
-    customer_name: string;
-    customer_phone: string;
-    customer_email: string;
-    total_amount: number;
+    orderId: string;
+    customerName: string;
+    phone: string;
+    customerEmail: string;
+    address: string;
+    city: string;
+    notes: string;
+    total: number;
     items?: Array<{
-        product_name: string;
+        name: string;
         quantity: number;
-        price_at_time: number;
+        price: number;
     }>;
 }
 
@@ -32,7 +35,7 @@ serve(async (req) => {
 
         // Format items list
         const itemsList = orderData.items?.map((item) =>
-            `• ${item.product_name} (الكمية: ${item.quantity}) - ${item.price_at_time} ج.م`
+            `• ${item.name} (الكمية: ${item.quantity}) - ${item.price} ج.م`
         ).join("\n") || "لا توجد تفاصيل";
 
         // Send email to admin
@@ -45,7 +48,7 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: "Target Air Conditioning <orders@targetaircool.com>",
                 to: [ADMIN_EMAIL],
-                subject: `🛒 طلب جديد #${orderData.order_id.slice(0, 8)}`,
+                subject: `🛒 طلب جديد #${orderData.orderId.slice(0, 8)}`,
                 html: `
           <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: linear-gradient(135deg, #0057A0 0%, #003366 100%); color: white; padding: 20px; border-radius: 10px; text-align: center;">
@@ -54,9 +57,10 @@ serve(async (req) => {
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
               <h2 style="color: #0057A0;">تفاصيل العميل:</h2>
-              <p><strong>الاسم:</strong> ${orderData.customer_name}</p>
-              <p><strong>رقم الهاتف:</strong> ${orderData.customer_phone}</p>
-              <p><strong>البريد الإلكتروني:</strong> ${orderData.customer_email || "غير متوفر"}</p>
+              <p><strong>الاسم:</strong> ${orderData.customerName}</p>
+              <p><strong>رقم الهاتف:</strong> ${orderData.phone}</p>
+              <p><strong>البريد الإلكتروني:</strong> ${orderData.customerEmail || "غير متوفر"}</p>
+              <p><strong>العنوان:</strong> ${orderData.address}, ${orderData.city}</p>
             </div>
             
             <div style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 10px; margin-top: 20px;">
@@ -65,7 +69,7 @@ serve(async (req) => {
             </div>
             
             <div style="background: #0057A0; color: white; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center;">
-              <h2 style="margin: 0;">الإجمالي: ${orderData.total_amount.toLocaleString()} ج.م</h2>
+              <h2 style="margin: 0;">الإجمالي: ${orderData.total.toLocaleString()} ج.م</h2>
             </div>
             
             <p style="text-align: center; color: #666; margin-top: 20px;">
@@ -88,7 +92,7 @@ serve(async (req) => {
         });
     } catch (error) {
         console.error("Error sending email:", error);
-        return new Response(JSON.stringify({ error: error.message }), {
+        return new Response(JSON.stringify({ error: (error as Error).message }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
             status: 500,
         });
