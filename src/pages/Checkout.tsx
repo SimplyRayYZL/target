@@ -171,7 +171,7 @@ const Checkout = () => {
             navigate(`/order-success/${order.id}`);
         } catch (error) {
             console.error("Error creating order:", error);
-            toast.error("حدث خطأ أثناء إنشاء الطلب. يرجى المحاولة مرة أخرى.");
+            toast.error(`حدث خطأ أثناء إنشاء الطلب: ${(error as any).message || "خطأ غير معروف"}`);
         } finally {
             setIsSubmitting(false);
         }
