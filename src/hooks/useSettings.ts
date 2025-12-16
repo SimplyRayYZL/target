@@ -250,3 +250,4 @@ export const getActiveBanners = (): Banner[] => {
 
 // Export default settings for initial use
 export { DEFAULT_SETTINGS };
+
