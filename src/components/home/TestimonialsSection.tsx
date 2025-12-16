@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Star, Quote } from "lucide-react";
 import {
   Carousel,
@@ -6,8 +5,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const testimonials = [
   {
@@ -61,19 +60,6 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
-  const [api, setApi] = React.useState<CarouselApi>();
-
-  // Auto-play every 10 seconds
-  useEffect(() => {
-    if (!api) return;
-
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [api]);
-
   return (
     <section className="py-16 bg-muted">
       <div className="container mx-auto px-4">
@@ -85,48 +71,54 @@ const TestimonialsSection = () => {
         </div>
 
         <Carousel
-          setApi={setApi}
+          plugins={[
+            Autoplay({
+              delay: 10000,
+            }),
+          ]}
           opts={{
             align: "start",
             loop: true,
           }}
           className="w-full max-w-5xl mx-auto"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent>
             {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                <div className="card-dream h-full flex flex-col">
-                  <Quote className="h-8 w-8 text-secondary/30 mb-4" />
+              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3">
+                <div className="p-2">
+                  <div className="card-dream h-full flex flex-col min-h-[300px]">
+                    <Quote className="h-8 w-8 text-secondary/30 mb-4" />
 
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-4 w-4 ${i < testimonial.rating
-                          ? "fill-dream-gold text-dream-gold"
-                          : "text-muted"
-                          }`}
-                      />
-                    ))}
-                  </div>
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${i < testimonial.rating
+                            ? "fill-dream-gold text-dream-gold"
+                            : "text-muted"
+                            }`}
+                        />
+                      ))}
+                    </div>
 
-                  <p className="text-foreground flex-1 leading-relaxed mb-4">
-                    "{testimonial.text}"
-                  </p>
+                    <p className="text-foreground flex-1 leading-relaxed mb-4">
+                      "{testimonial.text}"
+                    </p>
 
-                  <div className="border-t pt-4 mt-auto">
-                    <p className="font-bold text-foreground">{testimonial.name}</p>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <span>{testimonial.location}</span>
-                      <span>{testimonial.date}</span>
+                    <div className="border-t pt-4 mt-auto">
+                      <p className="font-bold text-foreground">{testimonial.name}</p>
+                      <div className="flex items-center justify-between text-sm text-muted-foreground">
+                        <span>{testimonial.location}</span>
+                        <span>{testimonial.date}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-4 sm:-left-12" />
-          <CarouselNext className="-right-4 sm:-right-12" />
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </div>
     </section>
